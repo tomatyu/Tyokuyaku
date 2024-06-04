@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express as px
-
+pip install plotly
 # タイトルを表示
 st.title('World Map with Streamlit')
 
