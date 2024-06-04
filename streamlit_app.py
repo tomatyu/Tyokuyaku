@@ -1,2 +1,10 @@
 import streamlit as st
-st.title("blue[歴史単語]")
+import plotly.express as px
+
+# タイトルを表示
+st.title('World Map with Streamlit')
+
+# 地図の描画
+fig = px.scatter_geo(lat=[0], lon=[0])
+fig.update_geos(projection_type="natural earth")
+st.plotly_chart(fig)
