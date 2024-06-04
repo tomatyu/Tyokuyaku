@@ -13,3 +13,4 @@ fig = go.Figure(data=go.Scattergeo(
 
 fig.update_geos(projection_type="natural earth")
 st.plotly_chart(fig)
+
