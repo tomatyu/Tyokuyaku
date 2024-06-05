@@ -1,16 +1,9 @@
 import streamlit as st
-import plotly.graph_objects as go
+import pandas as pd
+import numpy as np
 
-# タイトルを表示
-st.title('World Map with Streamlit')
+df = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['緯度', '経度'])
 
-# 地図の描画
-fig = go.Figure(data=go.Scattergeo(
-    lon = [0],
-    lat = [0],
-    mode = 'markers'
-))
-
-fig.update_geos(projection_type="natural earth")
-st.plotly_chart(fig)
-
+st.map(df)
