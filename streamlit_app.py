@@ -18,8 +18,8 @@ def main():
     selected_lat = None
     selected_lon = None
     if selected_pin is not None:
-        selected_lat = selected_pin[0]['lat']
-        selected_lon = selected_pin[0]['lon']
+        selected_lat = selected_pin['lat']
+        selected_lon = selected_pin['lon']
 
     # 選択されたピンの名前を取得
     selected_name = None
