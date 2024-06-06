@@ -14,14 +14,21 @@ def main():
     # 地図上に世界遺産のピンを表示
     selected_pin = st.map(world_heritage_data)
 
-    # 選択されたピンのインデックスを取得
-    pin_index = None
+    # 選択されたピンの位置を取得
+    selected_lat = None
+    selected_lon = None
     if selected_pin is not None:
-        pin_index = int(selected_pin.split(":")[-1].strip())
+        selected_lat = selected_pin[0]['lat']
+        selected_lon = selected_pin[0]['lon']
+
+    # 選択されたピンの名前を取得
+    selected_name = None
+    if selected_lat is not None and selected_lon is not None:
+        selected_name = world_heritage_data[(world_heritage_data['lat'] == selected_lat) & (world_heritage_data['lon'] == selected_lon)]['名前'].iloc[0]
 
     # 選択されたピンがあれば、その名前を表示
-    if pin_index is not None:
-        st.write("選択された世界遺産:", world_heritage_data.iloc[pin_index]['名前'])
+    if selected_name is not None:
+        st.write("選択された世界遺産:", selected_name)
 
 if __name__ == "__main__":
     main()
