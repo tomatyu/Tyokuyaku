@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import folium
 
 # 世界遺産の位置情報
 world_heritage_data = pd.DataFrame({
@@ -12,15 +11,17 @@ world_heritage_data = pd.DataFrame({
 def main():
     st.title("世界遺産地図")
 
-    # 地図の初期位置を設定
-    m = folium.Map(location=[0, 0], zoom_start=2)
+    # 地図上に世界遺産のピンを表示
+    selected_pin = st.map(world_heritage_data)
 
-    # 世界遺産のマーカーを地図に追加
-    for i, row in world_heritage_data.iterrows():
-        folium.Marker([row['lat'], row['lon']], popup=row['名前']).add_to(m)
+    # 選択されたピンのインデックスを取得
+    pin_index = None
+    if selected_pin is not None:
+        pin_index = int(selected_pin.split(":")[-1].strip())
 
-    # 地図を表示
-    folium_static(m)
+    # 選択されたピンがあれば、その名前を表示
+    if pin_index is not None:
+        st.write("選択された世界遺産:", world_heritage_data.iloc[pin_index]['名前'])
 
 if __name__ == "__main__":
     main()
