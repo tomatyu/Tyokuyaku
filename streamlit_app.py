@@ -12,7 +12,7 @@ usa_df = pd.DataFrame({
 })
 
 # 地図の初期ズームレベルを設定
-initial_zoom = 3
+initial_zoom = 6
 
 # メインエリアに地図を表示
 st.map(usa_df, zoom=initial_zoom)
