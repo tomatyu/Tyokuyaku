@@ -9,7 +9,4 @@ def main():
     st.title("世界遺産地図")
 
     # 地図上に世界遺産のピンを表示
-    st.map(a)
-
-if __name__ == "__main__":
-    main()
+st.map(a)
