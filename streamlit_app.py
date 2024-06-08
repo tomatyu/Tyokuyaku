@@ -1,15 +1,18 @@
 import streamlit as st
 import pandas as pd
 
-# フランスの緯度と経度
-france_latitude = 46.603354
-france_longitude = 1.888334
+# サイドバーに国名と首都を表示
+st.sidebar.write("国名: アメリカ合衆国")
+st.sidebar.write("首都: ワシントンDC")
 
-# DataFrameを作成
-france_df = pd.DataFrame({
-    'lat': [france_latitude],
-    'lon': [france_longitude]
+# データフレームの作成
+usa_df = pd.DataFrame({
+    'lat': [38.8977],  # ワシントンDCの緯度
+    'lon': [-77.0365]  # ワシントンDCの経度
 })
 
-# 地図にピンを立てる
-st.map(france_df)
+# 地図の初期ズームレベルを設定
+initial_zoom = 3
+
+# メインエリアに地図を表示
+st.map(usa_df, zoom=initial_zoom)
