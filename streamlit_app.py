@@ -3,7 +3,7 @@ import numpy as np
 
 # オセロの初期盤面を作成する関数
 def initial_board():
-    board = np.zeros((8, 8), dtype=int)
+    board = np.zeros((7, 8), dtype=int)
     board[3, 3] = board[4, 4] = 1  # 白石
     board[3, 4] = board[4, 3] = -1  # 黒石
     return board
@@ -11,16 +11,16 @@ def initial_board():
 # 指定された手番の合法手を探索する関数
 def legal_moves(board, player):
     moves = []
-    for i in range(8):
+    for i in range(7):
         for j in range(8):
             if board[i, j] == 0:
                 for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1), 
                                (-1, -1), (-1, 1), (1, -1), (1, 1)]:
                     x, y = i + di, j + dj
-                    if 0 <= x < 8 and 0 <= y < 8 and board[x, y] == -player:
-                        while 0 <= x < 8 and 0 <= y < 8 and board[x, y] == -player:
+                    if 0 <= x < 7 and 0 <= y < 8 and board[x, y] == -player:
+                        while 0 <= x < 7 and 0 <= y < 8 and board[x, y] == -player:
                             x, y = x + di, y + dj
-                        if 0 <= x < 8 and 0 <= y < 8 and board[x, y] == player:
+                        if 0 <= x < 7 and 0 <= y < 8 and board[x, y] == player:
                             moves.append((i, j))
                             break
     return moves
@@ -38,10 +38,10 @@ def flip(board, player, move):
     for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1),
                    (-1, -1), (-1, 1), (1, -1), (1, 1)]:
         x, y = i + di, j + dj
-        if 0 <= x < 8 and 0 <= y < 8 and board[x, y] == -player:
-            while 0 <= x < 8 and 0 <= y < 8 and board[x, y] == -player:
+        if 0 <= x < 7 and 0 <= y < 8 and board[x, y] == -player:
+            while 0 <= x < 7 and 0 <= y < 8 and board[x, y] == -player:
                 x, y = x + di, y + dj
-            if 0 <= x < 8 and 0 <= y < 8 and board[x, y] == player:
+            if 0 <= x < 7 and 0 <= y < 8 and board[x, y] == player:
                 nx, ny = i + di, j + dj
                 while (nx, ny) != (x, y):
                     board[nx, ny] = player
@@ -68,12 +68,12 @@ def play_game():
                 break
 
         st.write(f"現在の盤面:")
-        for i in range(8):
+        for i in range(7):
             for j in range(8):
                 if board[i, j] == -1:
-                    st.write("◼️", end=" ")
+                    st.write("⚫️", end=" ")
                 elif board[i, j] == 1:
-                    st.write("◻️", end=" ")
+                    st.write("⚪️", end=" ")
                 else:
                     st.write("⬜️", end=" ")
             st.write("")  # 改行
@@ -87,12 +87,12 @@ def play_game():
 
     black_count, white_count = count_pieces(board)
     st.write(f"最終盤面:")
-    for i in range(8):
+    for i in range(7):
         for j in range(8):
             if board[i, j] == -1:
-                st.write("◼️", end=" ")
+                st.write("⚫️", end=" ")
             elif board[i, j] == 1:
-                st.write("◻️", end=" ")
+                st.write("⚪️", end=" ")
             else:
                 st.write("⬜️", end=" ")
         st.write("")  # 改行
