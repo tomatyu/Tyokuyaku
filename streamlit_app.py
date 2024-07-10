@@ -14,7 +14,14 @@ def main():
     board = create_empty_board(board_size)
 
     # 盤面を表示する
-    st.dataframe(board.style.applymap(lambda x: 'background-color: white').set_properties(**{'text-align': 'center'}))
+    selected_position = st.empty()  # ユーザーが選択した位置を表示するための空のコンポーネント
+
+    # 盤面を描画する
+    for i in range(board_size):
+        for j in range(board_size):
+            cell = st.button(f'[{i},{j}]')  # 各マス目をボタンとして表示
+            if cell:
+                selected_position.write(f'選択されたマス: [{i},{j}]')  # ボタンがクリックされたら位置を表示
 
 if __name__ == '__main__':
     main()
