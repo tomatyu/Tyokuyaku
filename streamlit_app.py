@@ -14,7 +14,7 @@ def main():
     board = create_empty_board(board_size)
 
     # 盤面を表示する
-    st.dataframe(board.style.applymap(lambda x: 'background-color: white'))
+    st.dataframe(board.style.applymap(lambda x: 'background-color: white').set_properties(**{'text-align': 'center'}))
 
 if __name__ == '__main__':
     main()
