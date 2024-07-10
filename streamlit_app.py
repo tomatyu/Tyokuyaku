@@ -67,8 +67,16 @@ def play_game():
                 st.write("ゲーム終了です。")
                 break
 
-        st.write(f"現在の盤面 (黒: -1, 白: 1):")
-        st.write(board)
+        st.write(f"現在の盤面:")
+        for i in range(8):
+            for j in range(8):
+                if board[i, j] == -1:
+                    st.write("◼️", end=" ")
+                elif board[i, j] == 1:
+                    st.write("◻️", end=" ")
+                else:
+                    st.write("⬜️", end=" ")
+            st.write("")  # 改行
 
         st.write(f"プレイヤー {player} の番です。")
 
@@ -79,7 +87,15 @@ def play_game():
 
     black_count, white_count = count_pieces(board)
     st.write(f"最終盤面:")
-    st.write(board)
+    for i in range(8):
+        for j in range(8):
+            if board[i, j] == -1:
+                st.write("◼️", end=" ")
+            elif board[i, j] == 1:
+                st.write("◻️", end=" ")
+            else:
+                st.write("⬜️", end=" ")
+        st.write("")  # 改行
     st.write(f"黒の石: {black_count}, 白の石: {white_count}")
 
 # Streamlit UI
