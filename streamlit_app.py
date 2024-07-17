@@ -4,16 +4,15 @@ import plotly.express as px
 
 # データを初期読み込みする
 @st.cache
-# 地図表示
 def load_data():
     return pd.read_excel("28.xlsx")
-# 政治体制を表示
+
 @st.cache
-def load_data2():
+def load_data_political_system():
     return pd.read_excel("25.xlsx")
-# GDPを表示
+
 @st.cache
-def load_data3():
+def load_data_gdp():
     return pd.read_excel("27.xlsx")
 
 # Streamlitアプリケーションのセットアップ
@@ -22,8 +21,8 @@ st.write("好きな国を検索して、:red[知識] を見つけましょう！
 
 # データフレームを読み込む
 countries_df = load_data()
-countries_df2 = load_data2()
-df3 = load_data3()
+countries_df2 = load_data_political_system()
+df3 = load_data_gdp()
 
 # 初期の7大国のGDPデータを定義する
 gdp_data = {
@@ -75,29 +74,25 @@ elif tab == '国のGDP検索':
     # 選択した国の入力
     selected_country = st.text_input('比較したい国を入力してください（例: USA, China, Japanなど）')
 
-    selected_data = df3[df3['国名2'] == selected_country]
-
-# 大国のリスト（例として米国、中国、日本を指定）
-    major_countries = ['アメリカ合衆国', '中国', '日本']
-
-# 新しく追加する国の入力
+    # 新しく追加する国の入力
     new_country = st.text_input('新しく追加する国名を入力してください（例: ドイツ）')
-    st.write(":red[二つの国を必ず入力してください。]")
+    st.markdown(":red[二つの国を必ず入力してください。]")
 
-# 新しく追加した国のGDPを取得
-    if new_country:
+    # 新しく追加した国のGDPを取得
+    if new_country and selected_country:
         # 新旧の国を比較するグラフを描画
-        comparison_data = df3[df3['国名2'].isin([selected_country, new_country] + major_countries)]
+        comparison_data = df3[df3['国名2'].isin([selected_country, new_country])]
         fig_comparison = px.bar(comparison_data, x='国名2', y='GDP3', color='国名2',
-        labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
+                                labels={'GDP3': 'GDP (兆ドル)', '国名2': '国'})
         st.plotly_chart(fig_comparison)
-    else:
+    elif selected_country:
         st.write(f"{new_country} のデータが見つかりません。")
+
 elif tab == '政治体制検索':
     st.write("政治体制を選択してください")
     political_system = st.selectbox("", [
-       "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
-       "単一政党制", "軍事政権", "混合制", "大統領制"
+        "共和制", "多党制民主主義", "立憲君主制", "半大統領制", "議院内閣制", "絶対君主制", "準連邦制",
+        "単一政党制", "軍事政権", "混合制", "大統領制"
     ])
     if st.button('国を表示'):
         if political_system.strip() != "":
@@ -106,7 +101,8 @@ elif tab == '政治体制検索':
             if not selected_countries.empty:
                 st.subheader(f"{political_system} の国々")
                 # 選択された政治体制に属する国の表を表示
-                st.write(selected_countries["国国"])
+                for country in selected_countries["国名"]:
+                    st.write(country)
 
                 # 地図表示
                 st.subheader(f'{political_system} の地図')
@@ -114,6 +110,3 @@ elif tab == '政治体制検索':
                 st.map(locations, zoom=0.5)
             else:
                 st.write("検索結果なし")
-
-            # URLのクエリパラメータを更新して現在のタブを保持
-            st.experimental_set_query_params(tab='政治体制検索')
