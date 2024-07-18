@@ -3,11 +3,11 @@ import pandas as pd
 import plotly as px
 
 st.title("テスト表示")
-a = input("国語")
-b = input("英語")
-c = input("数学")
-d = input("理科")
-e = input("社会")
+a = st.text_input("国語")
+b = st.text_input("英語")
+c = st.text_input("数学")
+d = st.text_input("理科")
+e = st.text_input("社会")
 gdp_data = {
     "教科":["国語","英語","数学","理科","社会"],
     "点数":[a,b,c,d,e]
