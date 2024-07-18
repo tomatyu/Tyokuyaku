@@ -14,7 +14,7 @@ gdp_data = {
     "点数":[a,b,c,d,e]
 }
 if st.button("点数を表示する"):
-  chart_data = pd.DataFrame(
+  chart_data = (
    {
        "col1": "教科",
        "col2": "点数",
