@@ -13,5 +13,5 @@ gdp_data = {
     "点数":[a,b,c,d,e]
 }
 if st.button("点数を表示する"):
-    counter = px.bar(x="教科",y="点数")
+    counter = px.bar(gdp_data,x="教科",y="点数")
     st.plotly_chart(counter)
