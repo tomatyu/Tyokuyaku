@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly as px
+import numpy as np
 
 st.title("テスト表示")
 a = st.text_input("国語")
@@ -13,5 +14,10 @@ gdp_data = {
     "点数":[a,b,c,d,e]
 }
 if st.button("点数を表示する"):
-    counter = px.bar(gdp_data,x="教科",y="点数")
-    st.plotly_chart(counter)
+  chart_data = pd.DataFrame(
+   {
+       "col1": "教科",
+       "col2": "点数",
+   }
+)
+  st.bar_chart(chart_data, x="col1", y="col2", color="col3")
