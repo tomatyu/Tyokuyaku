@@ -11,13 +11,14 @@ d = st.text_input("理科")
 e = st.text_input("社会")
 gdp_data = {
     "教科":["国語","英語","数学","理科","社会"],
+
     "点数":[a,b,c,d,e]
 }
+major_countries = [gdp_data]
+comparison_data = [major_countries]
+
 if st.button("点数を表示する"):
-  chart_data = (
-   {
-       "col1": "教科",
-       "col2": "点数",
-   }
-)
-  st.bar_chart(chart_data, x="col1", y="col2", color="col3")
+    comparison_data = [major_countries]
+    fig_comparison = px.bar(comparison_data, x='教科', y='点数', color='教科',
+    labels={'点数': '点数', '教科': '教科'})
+    st.plotly_chart(fig_comparison)
