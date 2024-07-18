@@ -48,5 +48,5 @@ st.title("テスト表示")
 
 if st.button("表示"):
     st.plotly_chart(fig, use_container_width=True)
-    st.vega_lite_chart(kig, use_container_width=True)
+    st.plotly_chart(kig)
   
