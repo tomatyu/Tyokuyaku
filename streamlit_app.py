@@ -4,11 +4,11 @@ import plotly.graph_objs as go
 import numpy as np
 import numbers
 
-a = st.number_input("")
-b = st.number_input("")
-c = st.number_input("")
-d = st.number_input("")
-e = st.number_input("")
+a = st.number_input("青森県")
+b = st.number_input("STDEV.P")
+c = st.number_input("STDVE")
+d = st.number_input("Fe")
+e = st.number_input("ｄふぇ")
 
 kazu = [a,b,c,d,e]
 subject = ["国語","英語","数学","理科","社会"]
