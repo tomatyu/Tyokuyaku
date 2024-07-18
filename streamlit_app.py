@@ -30,9 +30,9 @@ radar_values = np.concatenate([kazu, [kazu[0]]])
 # プロットする角度を生成する。
 angles = np.linspace(0, 2 * np.pi, len(subject) + 1, endpoint=True)
 
-fig = plt.figure(facecolor="w")
+kig = plt.figure(facecolor="w")
 # 極座標でaxを作成。
-ax = fig.add_subplot(1, 1, 1, polar=True)
+ax = kig.add_subplot(1, 1, 1, polar=True)
 # レーダーチャートの線を引く
 ax.plot(angles, radar_values)
 #　レーダーチャートの内側を塗りつぶす
