@@ -4,7 +4,6 @@ import plotly.graph_objs as go
 import numpy as np
 import numbers
 
-
 a = st.number_input("国語")
 b = st.number_input("英語")
 c = st.number_input("数学")
