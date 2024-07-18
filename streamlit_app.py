@@ -1,24 +1,29 @@
 import streamlit as st
 import pandas as pd
-import plotly as px
+import plotly.graph_objs as go
 import numpy as np
 
 st.title("テスト表示")
-a = st.text_input("国語")
-b = st.text_input("英語")
-c = st.text_input("数学")
-d = st.text_input("理科")
-e = st.text_input("社会")
-gdp_data = {
-    "教科":["国語","英語","数学","理科","社会"],
+a = st.number_inpu("国語")
+b = st.number_input_input("英語")
+c = st.number_input_input("数学")
+d = st.number_input_input("理科")
+e = st.number_input_input("社会")
 
-    "点数":[a,b,c,d,e]
-}
-major_countries = [gdp_data]
-comparison_data = [major_countries]
+kazu = [a,b,c,d,e]
+subject = ["国語","英語","数学","理科","社会"]
+fig = go.Figure(data=[go.Bar(x=subject, y=kazu)])
 
-if st.button("点数を表示する"):
-    comparison_data = [major_countries]
-    fig_comparison = (comparison_data, x = "教科" , y = "点数" 
-    labels={'点数': '点数', "教科": "教科"})
-    st.plotly_chart(fig_comparison)
+fig.update_layout(
+    xaxis = dict(
+        tickangle = 0,
+        title_text = "教科",
+        title_font = {"size": 20},
+        title_standoff = 25),
+    yaxis = dict(
+        title_text = "点数",
+        title_standoff = 25),
+    title ='Title')
+
+if st.button("表示"):
+    st.plotly_chart(fig, use_container_width=True)
