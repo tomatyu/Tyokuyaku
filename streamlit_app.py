@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objs as go
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as px
 import numpy as np
 import numbers
 
@@ -25,23 +25,13 @@ fig.update_layout(
         title_text = "点数",
         title_standoff = 25),
     title ='Title')
-# 多角形を閉じるためにデータの最後に最初の値を追加する。
-radar_values = np.concatenate([kazu, [kazu[0]]])
-# プロットする角度を生成する。
-angles = np.linspace(0, 2 * np.pi, len(subject) + 1, endpoint=True)
+df = pd.DataFrame(subject)
+df = df.drop('brandId', axis=1)
+    # 見やすくするためにカラム名を変更、その後plotlyで読み込めるようにデータを転置
+df = df.rename(columns={'f1':'国語', 'f2':'英語', 'f3':'数学', 'f4':'理科', 'f5':'社会'}).T
+kig = px.line_polar(df, r=df[0], theta=df.index, line_close=True, range_r=[0,1])
 
-kig = plt.figure(facecolor="w")
-# 極座標でaxを作成。
-ax = kig.add_subplot(1, 1, 1, polar=True)
-# レーダーチャートの線を引く
-ax.plot(angles, radar_values)
-#　レーダーチャートの内側を塗りつぶす
-ax.fill(angles, radar_values, alpha=0.2)
-# 項目ラベルの表示
-ax.set_thetagrids(angles[:-1] * 180 / np.pi, subject)
-
-ax.set_title("レーダーチャート", pad=20)
-plt.show()
+ 
 
 
 st.title("テスト表示")
