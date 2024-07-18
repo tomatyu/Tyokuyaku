@@ -29,7 +29,7 @@ fig.update_layout(
         title_standoff = 25),
     title ='Title')
 df = pd.DataFrame(subject)
-df = df.drop('brandId', axis=1)
+
     # 見やすくするためにカラム名を変更、その後plotlyで読み込めるようにデータを転置
 df = df.rename(columns={'f1':'国語', 'f2':'英語', 'f3':'数学', 'f4':'理科', 'f5':'社会'}).T
 kig = px.line_polar(df, r=df[0], theta=df.index, line_close=True, range_r=[0,1])
