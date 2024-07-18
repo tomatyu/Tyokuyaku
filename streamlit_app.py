@@ -18,8 +18,8 @@ fig.update_layout(
     xaxis = dict(
         tickangle = 0,
         title_text = "教科",
-        title_font = {"size": 20},
-        title_standoff = 25),
+        title_font = {"size": 10},
+        title_standoff = 15),
     yaxis = dict(
         title_text = "点数",
         title_standoff = 25),
