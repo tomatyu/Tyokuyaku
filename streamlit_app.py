@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objs as go
+import matplotlib.pyplot as plt
 import numpy as np
 import numbers
 
@@ -24,8 +25,26 @@ fig.update_layout(
         title_text = "点数",
         title_standoff = 25),
     title ='Title')
+# 多角形を閉じるためにデータの最後に最初の値を追加する。
+radar_values = np.concatenate([kazu, [kazu[0]]])
+# プロットする角度を生成する。
+angles = np.linspace(0, 2 * np.pi, len(subject) + 1, endpoint=True)
+
+fig = plt.figure(facecolor="w")
+# 極座標でaxを作成。
+ax = fig.add_subplot(1, 1, 1, polar=True)
+# レーダーチャートの線を引く
+ax.plot(angles, radar_values)
+#　レーダーチャートの内側を塗りつぶす
+ax.fill(angles, radar_values, alpha=0.2)
+# 項目ラベルの表示
+ax.set_thetagrids(angles[:-1] * 180 / np.pi, subject)
+
+ax.set_title("レーダーチャート", pad=20)
+
 
 st.title("テスト表示")
 
 if st.button("表示"):
     st.plotly_chart(fig, use_container_width=True)
+    plt.show()
