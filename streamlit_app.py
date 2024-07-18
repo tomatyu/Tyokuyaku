@@ -4,6 +4,9 @@ import plotly.graph_objs as go
 import matplotlib.pyplot as px
 import numpy as np
 import numbers
+import requests
+import json
+
 
 a = st.number_input("国語",value=50,step=10,min_value=0, max_value=100)
 b = st.number_input("英語",value=50,step=10,min_value=0, max_value=100)
