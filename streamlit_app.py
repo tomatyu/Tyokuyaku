@@ -41,10 +41,11 @@ ax.fill(angles, radar_values, alpha=0.2)
 ax.set_thetagrids(angles[:-1] * 180 / np.pi, subject)
 
 ax.set_title("レーダーチャート", pad=20)
+plt.show()
 
 
 st.title("テスト表示")
 
 if st.button("表示"):
     st.plotly_chart(fig, use_container_width=True)
-    plt.show()
+  
