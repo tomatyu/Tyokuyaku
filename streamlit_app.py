@@ -4,7 +4,7 @@ import plotly.graph_objs as go
 import numpy as np
 import numbers
 
-st.title("テスト表示")
+
 a = st.number_input("国語")
 b = st.number_input("英語")
 c = st.number_input("数学")
@@ -25,6 +25,8 @@ fig.update_layout(
         title_text = "点数",
         title_standoff = 25),
     title ='Title')
+
+st.title("テスト表示")
 
 if st.button("表示"):
     st.plotly_chart(fig, use_container_width=True)
