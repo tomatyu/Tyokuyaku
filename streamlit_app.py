@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objs as go
-import plotly.express as px
+import plotly.express as px  # 修正: plotly.express を px としてインポート
+import numpy as np
 
 # 教科ごとの点数を入力
 a = st.number_input("国語", value=50, step=10, min_value=0, max_value=100)
