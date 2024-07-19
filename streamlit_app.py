@@ -8,6 +8,8 @@ def load_data():
     random_indices = random.sample(range(len(df)), min(4, len(df)))  # ランダムな行インデックスを取得する
     return df.iloc[random_indices]  # ランダムに抽出した行を取得する
 
+col1,col2 = st.columns(2)  #二列に分ける
+
 def main():
     st.title('Excelデータのランダムなソート')
 
@@ -34,10 +36,14 @@ def main():
     f = b["国名"]
     g = c["国名"]
     h = d["国名"]
-    st.button(e)
-    st.button(f)
-    st.button(g)
-    st.button(h)
+    with col1:
+      st.button(e)
+    with col2:
+      st.button(f)
+    with col1:
+      st.button(g)
+    with col2:
+      st.button(h)
    
 if __name__ == '__main__':
     main()
