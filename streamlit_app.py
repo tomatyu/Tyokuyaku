@@ -28,10 +28,10 @@ def main():
     b =  sorted_df.iloc[1]
     c =  sorted_df.iloc[2]
     d =  sorted_df.iloc[3]
-    st.write(a["国名"])
-    st.write(b["国名"])
-    st.write(c["国名"])
-    st.write(d["国名"])
-
+    e = a["国名"]
+    f = b["国名"]
+    g = c["国名"]
+    h = d["国名"]
+   
 if __name__ == '__main__':
     main()
