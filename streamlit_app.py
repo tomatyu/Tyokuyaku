@@ -37,8 +37,8 @@ def main():
         print_board(board)
 
         # プレイヤーに手を打たせる
-        col = st.number_input(f"{current_player} の手を入力してください（列番号を0から7で指定）:", min_value=0, max_value=7)
-        row = st.number_input(f"{current_player} の手を入力してください（行番号を0から7で指定）:", min_value=0, max_value=7)
+        col = st.number_input(f"{current_player} の手を入力してください（列番号を0から7で指定）:", min_value=0, max_value=7, key=f"{current_player}_col")
+        row = st.number_input(f"{current_player} の手を入力してください（行番号を0から7で指定）:", min_value=0, max_value=7, key=f"{current_player}_row")
 
         # 石を置く
         if board[row][col] == ' ':
@@ -57,6 +57,9 @@ def main():
         if all(all(cell != ' ' for cell in row) for row in board):
             st.write("ゲーム終了！")
             break
+
+        # ボードを更新するためにウィジェットを再描画
+        st.text('')
 
 if __name__ == '__main__':
     main()
