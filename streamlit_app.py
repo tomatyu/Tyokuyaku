@@ -5,7 +5,7 @@ import random
 # データをランダムに4行抽出して読み込む関数
 def load_data():
     df = pd.read_excel("28.xlsx")
-    random_indices = random.sample(range(len(df)), min(4, len(df)))  # ランダムな行インデックスを取得する
+    random_indices = random.sample(range(len(df)), min(1, len(df)))  # ランダムな行インデックスを取得する
     return df.iloc[random_indices]  # ランダムに抽出した行を取得する
 
 def main():
@@ -20,7 +20,9 @@ def main():
 
     # 数値列で昇順にソートする
     sorted_df = df.sort_values(by='緯度', ascending=True)
-
+    sorted_df = df.sort_values(by='緯度', ascending=True)
+    sorted_df = df.sort_values(by='緯度', ascending=True)
+    sorted_df = df.sort_values(by='緯度', ascending=True)
     # ソート後のデータを表示
     st.subheader('数値列を小さい順にソートした結果')
     st.dataframe(sorted_df)
