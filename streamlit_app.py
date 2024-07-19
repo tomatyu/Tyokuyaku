@@ -34,7 +34,10 @@ def main():
     f = b["国名"]
     g = c["国名"]
     h = d["国名"]
-    st.write(e)
+    st.button(e)
+    st.button(f)
+    st.button(g)
+    st.button(h)
    
 if __name__ == '__main__':
     main()
