@@ -32,6 +32,7 @@ def main():
     d =  sorted_df.iloc[3]
      #二列に分ける
     col1,col2 = st.columns(2) 
+    botan = ['e2','f2','g2','h2'] 
 
     # それぞれの順番の国家
     e = a["国名"]
@@ -50,6 +51,11 @@ def main():
     with col2:
       if st.button(h):
         h2 = h
+
    
 if __name__ == '__main__':
     main()
+if "_botan_"== "_sorted_df_":
+   st.write("正解です")
+else:
+   st.write("不正解です")
