@@ -24,7 +24,7 @@ def main():
     # ソート後のデータを表示
     st.subheader('数値列を小さい順にソートした結果')
     st.dataframe(sorted_df)
-    selected = selected.iloc[0]
-    st.wrie(selected("国名"))
+    select =  sorted_df.iloc[0]
+
 if __name__ == '__main__':
     main()
