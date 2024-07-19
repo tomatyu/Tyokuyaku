@@ -24,7 +24,7 @@ def main():
     # ソート後のデータを表示
     st.subheader('数値列を小さい順にソートした結果')
     st.dataframe(sorted_df)
-    selected = df[df["国名"] == df]
+    selected = df[df["国名"]]
     if not selected.empty:
                 selected = selected.iloc[0]
                 st.wrie(selected)
