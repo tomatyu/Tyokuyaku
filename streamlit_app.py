@@ -24,11 +24,14 @@ def main():
     # ソート後のデータを表示
     st.subheader('数値列を小さい順にソートした結果')
     st.dataframe(sorted_df)
-
-    # 各行の国名を表示する
-    st.subheader('各行の国名')
-    for index, row in sorted_df.iterrows():
-        st.write(row['国名'])
+    a =  sorted_df.iloc[0]
+    b =  sorted_df.iloc[1]
+    c =  sorted_df.iloc[2]
+    d =  sorted_df.iloc[3]
+    st.write(a["国名"])
+    st.write(b["国名"])
+    st.write(c["国名"])
+    st.write(d["国名"])
 
 if __name__ == '__main__':
     main()
