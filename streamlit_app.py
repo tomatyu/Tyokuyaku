@@ -24,29 +24,34 @@ def main():
     # 国名のリストを作成
     countries = sorted_df["国名"].tolist()
 
-    # ボタンを1回ずつしか押せないようにするためのフラグ
-    button_pressed = [False] * 4
+    # ランダムな順番でボタンを表示するためのインデックスをシャッフル
+    random_indices = list(range(4))
+    random.shuffle(random_indices)
 
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button(countries[0]):
-            button_pressed[0] = True
+        if st.button(countries[random_indices[0]]):
+            check_order(countries, random_indices)
 
     with col2:
-        if st.button(countries[1]):
-            button_pressed[1] = True
+        if st.button(countries[random_indices[1]]):
+            check_order(countries, random_indices)
 
     with col1:
-        if st.button(countries[2]):
-            button_pressed[2] = True
+        if st.button(countries[random_indices[2]]):
+            check_order(countries, random_indices)
 
     with col2:
-        if st.button(countries[3]):
-            button_pressed[3] = True
+        if st.button(countries[random_indices[3]]):
+            check_order(countries, random_indices)
 
-    # 正しい順序でボタンが押されたかを判定
-    if all(button_pressed):
+def check_order(countries, random_indices):
+    # 押された順序を確認する
+    correct_order = sorted(countries)
+    selected_order = [countries[idx] for idx in random_indices]
+
+    if selected_order == correct_order:
         st.write("正解です")
     else:
         st.write("不正解です")
