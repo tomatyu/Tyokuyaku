@@ -32,7 +32,7 @@ gdp_data = {
 }
 
 # sidebarにボタンを配置
-tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索'])
+tab = st.sidebar.radio("選択してください", ['ホーム', '国検索', '国のGDP検索', '政治体制検索','クイズ'])
 
 if tab == 'ホーム':
     st.write(":blue[世界検索へようこそ！！]")
@@ -117,3 +117,5 @@ elif tab == '政治体制検索':
 
             # URLのクエリパラメータを更新して現在のタブを保持
             st.experimental_set_query_params(tab='政治体制検索')
+elif tab == 'クイズ':
+    st.write("こんちゃー")
