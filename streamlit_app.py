@@ -1,22 +1,23 @@
 import streamlit as st
+import pandas as pd
 
-def main():
-    st.title('2x2 Input Bars Example')
+st.title('Excelデータのソート')
 
-    # 2x2の入力バーを作成する
-    # それぞれの要素に対してsliderウィジェットを使用する例
-    st.subheader('Matrix Input')
+# Excelファイルをアップロードするためのウィジェット
+def load_data():
+    return pd.read_excel("28.xlsx")
 
-    # 行列の要素を格納する2x2のリスト
-    matrix = [[0, 0], [0, 0]]
-
-    # 各要素に対して入力バー（slider）を作成する
-    for i in range(2):
-        for j in range(2):
-            matrix[i][j] = st.slider(f'Element [{i}][{j}]', min_value=0, max_value=100, value=0)
-
-    st.subheader('Entered Matrix')
-    st.write(matrix)
-
-if __name__ == '__main__':
-    main()
+if load_data is not None:
+    # pandasでExcelファイルを読み込む
+    df = pd.read_excel(load_data)
+    
+    # データを表示
+    st.subheader('元のデータ')
+    st.dataframe(df)
+    
+    # 数値列で昇順にソートする
+    sorted_df = df.sort_values(by='緯度', ascending=True)
+    
+    # ソート後のデータを表示
+    st.subheader('数値列を小さい順にソートした結果')
+    st.dataframe(sorted_df)
