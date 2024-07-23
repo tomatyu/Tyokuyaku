@@ -51,6 +51,16 @@ def main():
         st.subheader('選択された国名')
         st.write(selected_countries)
 
+    # ボタンのラベルは常に表示されるようにする
+    with col1:
+        st.button(button_labels[0])
+    with col2:
+        st.button(button_labels[1])
+    with col1:
+        st.button(button_labels[2])
+    with col2:
+        st.button(button_labels[3])
+
 
 if __name__ == '__main__':
     main()
