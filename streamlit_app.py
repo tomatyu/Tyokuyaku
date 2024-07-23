@@ -8,8 +8,8 @@ st.title('Simple Drawing App')
 canvas_size = st.slider('Canvas Size', 200, 800, 400)
 
 # 描画用のキャンバスを作成
-canvas = st.empty()
-draw = ImageDraw.Draw(canvas.image)
+canvas_image = Image.new('RGB', (canvas_size, canvas_size), 'white')
+draw = ImageDraw.Draw(canvas_image)
 
 # 描画モードの選択
 mode = st.radio('Drawing Tool', ('Pen', 'Eraser'))
@@ -27,13 +27,12 @@ if mode == 'Pen':
         draw.line([start, end], fill=color, width=size)
         return image
 
-    if canvas.image is None:
-        canvas.image = Image.new('RGB', (canvas_size, canvas_size), 'white')
-
     if st.button('Clear Canvas'):
-        canvas.image = Image.new('RGB', (canvas_size, canvas_size), 'white')
+        canvas_image = Image.new('RGB', (canvas_size, canvas_size), 'white')
 
-    # マウスイベントの処理
-    def draw_on_image(image, draw, start, end, color, size):
-        draw.line([start, end], fill=color, width=size)
-        return image
+    # 描画ツールのロジックを追加する
+
+# Streamlitの画面にキャンバスを表示する
+st.image(canvas_image)
+
+# 必要な場所で最終のcanvas_imag
