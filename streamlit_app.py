@@ -1,64 +1,34 @@
 import streamlit as st
-import pandas as pd
-import random
+from PIL import Image, ImageDraw
 
-# グローバル変数としてデータフレームを宣言
-df = None
+# アプリケーションのタイトルを設定
+st.title('Simple Drawing App')
 
-# 初期データの読み込み
-def load_data():
-    global df
-    df = pd.read_excel("28.xlsx")
+# Canvasのサイズを設定
+canvas_size = st.slider('Canvas Size', 200, 800, 400)
 
-def main():
-    global df
+# 描画用のキャンバスを作成
+canvas = st.empty()
+draw = ImageDraw.Draw(canvas.image)
 
-    st.title('Excelデータのランダムなソート')
+# 描画モードの選択
+mode = st.radio('Drawing Tool', ('Pen', 'Eraser'))
 
-    # データがまだ読み込まれていない場合は初回読み込み
-    if df is None:
-        load_data()
+if mode == 'Pen':
+    draw_color = st.color_picker('Choose pen color', '#000000')
+    pen_size = st.slider('Pen size', 1, 20, 5)
 
-    # ボタン用のラベルをランダムに選ぶ
-    sorted_df = df.sort_values(by='緯度', ascending=True)
-    unique_countries = sorted_df['国名'].unique()
-    button_labels = random.sample(list(unique_countries), 4)
+    # マウスの状態を追跡するための変数
+    dragging = False
+    previous_point = None
 
-    # ボタンの状態を保持するための辞書
-    button_clicked = {
-        button_labels[0]: False,
-        button_labels[1]: False,
-        button_labels[2]: False,
-        button_labels[3]: False
-    }
+    # マウスイベントの処理
+    if canvas.image is None:
+        canvas.image = Image.new('RGB', (canvas_size, canvas_size), 'white')
 
-    # 選択された国名を保持するリスト
-    selected_countries = []
+    if st.button('Clear Canvas'):
+        canvas.image = Image.new('RGB', (canvas_size, canvas_size), 'white')
 
-    # ボタンが押されたかどうかを判定し、状態を更新する
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
-            button_clicked[button_labels[0]] = True
-            selected_countries.append(button_labels[0])
-    with col2:
-        if st.button(button_labels[1]) and not button_clicked[button_labels[1]]:
-            button_clicked[button_labels[1]] = True
-            selected_countries.append(button_labels[1])
-
-    with col1:
-        if st.button(button_labels[2]) and not button_clicked[button_labels[2]]:
-            button_clicked[button_labels[2]] = True
-            selected_countries.append(button_labels[2])
-    with col2:
-        if st.button(button_labels[3]) and not button_clicked[button_labels[3]]:
-            button_clicked[button_labels[3]] = True
-            selected_countries.append(button_labels[3])
-
-    # 選択された国名を表示する
-    if selected_countries:
-        st.subheader('選択された国名')
-        st.write(selected_countries)
-
-if __name__ == '__main__':
-    main()
+    # マウスイベントの処理
+    canvas = st_canvas(
+        fill_color="rgba(255, 165, 0, 0. So have among so also? had
