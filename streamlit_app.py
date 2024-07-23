@@ -27,18 +27,14 @@ def main():
 
     # データからランダムに4つのユニークな国名を取得する
     unique_countries = sorted_df['国名'].unique()
-    button_labels = random.sample(list(unique_countries), min(4, len(unique_countries)))
+    # ボタン用のラベルをランダムに選び、4つに制限する
+    button_labels = random.sample(list(unique_countries), 4)
 
     # ボタンを生成してクリックされた順番を記録する
     clicked_order = []
-    col1, col2 = st.columns(2)
     for label in button_labels:
-        with col1:
-            if st.button(f"ボタン1: {label}"):
-                clicked_order.append(label)
-        with col2:
-            if st.button(f"ボタン2: {label}"):
-                clicked_order.append(label)
+        if st.button(label):
+            clicked_order.append(label)
 
     # 正しい順番を取得する
     correct_order = sorted(sorted_df['国名'].tolist())  # 昇順でソートした正解のリスト
