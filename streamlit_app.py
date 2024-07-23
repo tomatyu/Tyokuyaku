@@ -4,7 +4,6 @@ import random
 
 # グローバル変数としてデータフレームを宣言
 df = None
-button_click_order = []  # ボタンが押された順序を記録するリスト
 
 # 初期データの読み込み
 def load_data():
@@ -13,7 +12,6 @@ def load_data():
 
 def main():
     global df
-    global button_click_order
 
     st.title('Excelデータのランダムなソート')
 
@@ -44,35 +42,30 @@ def main():
         button_labels[3]: False
     }
 
-    # ボタンが押された場合、そのボタンの状態を反転し、押された順を記録する
+    # ボタンが押された場合、そのボタンの状態を反転する
     if st.button(button_labels[0]):
-        button_state[button_labels[0]] = True
-        button_click_order.append(button_labels[0])
+        button_state[button_labels[0]] = not button_state[button_labels[0]]
     if st.button(button_labels[1]):
-        button_state[button_labels[1]] = True
-        button_click_order.append(button_labels[1])
+        button_state[button_labels[1]] = not button_state[button_labels[1]]
     if st.button(button_labels[2]):
-        button_state[button_labels[2]] = True
-        button_click_order.append(button_labels[2])
+        button_state[button_labels[2]] = not button_state[button_labels[2]]
     if st.button(button_labels[3]):
-        button_state[button_labels[3]] = True
-        button_click_order.append(button_labels[3])
+        button_state[button_labels[3]] = not button_state[button_labels[3]]
 
     # ボタンの状態に応じてメッセージを表示する
-    display_order = button_click_order[:]  # ボタンが押された順に表示するための順序リストをコピー
     with col1:
         if button_state[button_labels[0]]:
-            st.write(f'クリックされたボタン: {display_order.index(button_labels[0]) + 1}番目にクリックされたボタン: {button_labels[0]}')
+            st.write(f'クリックされたボタン: {button_labels[0]}')
     with col2:
         if button_state[button_labels[1]]:
-            st.write(f'クリックされたボタン: {display_order.index(button_labels[1]) + 1}番目にクリックされたボタン: {button_labels[1]}')
+            st.write(f'クリックされたボタン: {button_labels[1]}')
 
     with col1:
         if button_state[button_labels[2]]:
-            st.write(f'クリックされたボタン: {display_order.index(button_labels[2]) + 1}番目にクリックされたボタン: {button_labels[2]}')
+            st.write(f'クリックされたボタン: {button_labels[2]}')
     with col2:
         if button_state[button_labels[3]]:
-            st.write(f'クリックされたボタン: {display_order.index(button_labels[3]) + 1}番目にクリックされたボタン: {button_labels[3]}')
+            st.write(f'クリックされたボタン: {button_labels[3]}')
 
 
 if __name__ == '__main__':
