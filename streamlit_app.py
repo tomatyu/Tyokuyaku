@@ -46,19 +46,10 @@ def main():
         button_clicked[button_labels[3]] = True
 
     # ボタンの状態に応じてメッセージを表示する
-    with col1:
-        if button_clicked[button_labels[0]]:
-            st.write(f'クリックされたボタン: {button_labels[0]}')
-    with col2:
-        if button_clicked[button_labels[1]]:
-            st.write(f'クリックされたボタン: {button_labels[1]}')
-
-    with col1:
-        if button_clicked[button_labels[2]]:
-            st.write(f'クリックされたボタン: {button_labels[2]}')
-    with col2:
-        if button_clicked[button_labels[3]]:
-            st.write(f'クリックされたボタン: {button_labels[3]}')
+    selected_countries = [label for label, clicked in button_clicked.items() if clicked]
+    if selected_countries:
+        st.subheader('選択された国名')
+        st.write(selected_countries)
 
 
 if __name__ == '__main__':
