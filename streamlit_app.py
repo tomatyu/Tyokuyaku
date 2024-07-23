@@ -21,9 +21,6 @@ def main():
     if df is None:
         df = load_data()
 
-    # データフレームをランダムに再配置するためのランダムシードを設定
-    random.seed(0)
-
     # 元のデータを表示
     st.subheader('ランダムに選んだデータ（最大4行）')
     st.dataframe(df)
@@ -37,19 +34,11 @@ def main():
 
     # データから4つのユニークな国名を取得する
     unique_countries = sorted_df['国名'].unique()
-
     # ボタン用のラベルをランダムに選ぶ
     button_labels = random.sample(list(unique_countries), 4)
 
     # ボタンを2x2のグリッドに配置する
     col1, col2 = st.columns(2)
-
-    # "今日は"ボタンが押された場合の処理
-    if st.button("今日は"):
-        df = load_data()  # データをランダムに再読み込み
-        st.experimental_rerun()  # ページを再読み込みして新しいデータを表示
-
-    # それ以外のボタンを配置
     with col1:
         if st.button(button_labels[0]):
             st.write(f'クリックされたボタン: {button_labels[0]}')
@@ -66,3 +55,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+if st.button:
+    st.write("今日は")
