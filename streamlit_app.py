@@ -39,23 +39,40 @@ def main():
 
     # ボタンを2x2のグリッドに配置する
     col1, col2 = st.columns(2)
+
+    # ボタンの状態を保持するためのデフォルト値を設定
+    button_state = {
+        button_labels[0]: False,
+        button_labels[1]: False,
+        button_labels[2]: False,
+        button_labels[3]: False
+    }
+
+    # ボタンが押された場合、そのボタンの状態を反転する
+    if st.button(button_labels[0]):
+        button_state[button_labels[0]] = not button_state[button_labels[0]]
+    if st.button(button_labels[1]):
+        button_state[button_labels[1]] = not button_state[button_labels[1]]
+    if st.button(button_labels[2]):
+        button_state[button_labels[2]] = not button_state[button_labels[2]]
+    if st.button(button_labels[3]):
+        button_state[button_labels[3]] = not button_state[button_labels[3]]
+
+    # ボタンの状態に応じてメッセージを表示する
     with col1:
-        if st.button(button_labels[0]):
+        if button_state[button_labels[0]]:
             st.write(f'クリックされたボタン: {button_labels[0]}')
     with col2:
-        if st.button(button_labels[1]):
+        if button_state[button_labels[1]]:
             st.write(f'クリックされたボタン: {button_labels[1]}')
 
     with col1:
-        if st.button(button_labels[2]):
+        if button_state[button_labels[2]]:
             st.write(f'クリックされたボタン: {button_labels[2]}')
     with col2:
-        if st.button(button_labels[3]):
+        if button_state[button_labels[3]]:
             st.write(f'クリックされたボタン: {button_labels[3]}')
 
-if st.button:
-    st.write("今日は")
 
 if __name__ == '__main__':
     main()
-
