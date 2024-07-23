@@ -67,6 +67,9 @@ def main():
         if button_state[button_labels[3]]:
             st.write(f'クリックされたボタン: {button_labels[3]}')
 
+    # 表示されたデータを消去する
+    st.subheader('')
+    st.dataframe(None)
 
 if __name__ == '__main__':
     main()
