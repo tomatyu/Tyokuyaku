@@ -27,8 +27,12 @@ def main():
     st.dataframe(sorted_df)
 
     # データから4つのユニークな国名を取得する
-    unique_countries = sorted_df['国名'].unique()
+    
     # ボタン用のラベルをランダムに選ぶ
+if st.button("ランダム"):
+    sorted_df = df.sort_values(by='緯度', ascending=True)
+
+    unique_countries = sorted_df['国名'].unique()
     button_labels = random.sample(list(unique_countries), 4)
 
     # ボタンを2x2のグリッドに配置する
@@ -70,3 +74,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    random
