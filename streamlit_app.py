@@ -25,18 +25,19 @@ def main():
     st.subheader('数値列を小さい順にソートした結果')
     st.dataframe(sorted_df)
 
-    # ボタンのラベルをランダムに設定する
-    button_labels = random.sample(list(sorted_df['国名']), 4)
+    # データからランダムに4つのユニークな国名を取得する
+    unique_countries = sorted_df['国名'].unique()
+    button_labels = random.sample(list(unique_countries), min(4, len(unique_countries)))
 
     # ボタンを生成してクリックされた順番を記録する
     clicked_order = []
     col1, col2 = st.columns(2)
     for label in button_labels:
         with col1:
-            if st.button(f"ボタン1: {label}"):
+            if st.button(label):
                 clicked_order.append(label)
         with col2:
-            if st.button(f"ボタン2: {label}"):
+            if st.button(label):
                 clicked_order.append(label)
 
     # 正しい順番を取得する
