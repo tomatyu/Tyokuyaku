@@ -33,14 +33,14 @@ def main():
     col1, col2 = st.columns(2)
     for label in button_labels:
         with col1:
-            if st.button(label):
+            if st.button(f"ボタン1: {label}"):
                 clicked_order.append(label)
         with col2:
-            if st.button(label):
+            if st.button(f"ボタン2: {label}"):
                 clicked_order.append(label)
 
     # 正しい順番を取得する
-    correct_order = sorted_df['国名'].tolist()
+    correct_order = sorted(sorted_df['国名'].tolist())  # 昇順でソートした正解のリスト
 
     # 結果を判定する
     if clicked_order == correct_order:
