@@ -21,9 +21,6 @@ def main():
     st.title('Excelデータのランダムなソート')
 
     # データがまだ読み込まれていない場合は読み込む
-    if df is None:
-        df = load_data()
-
     
     
 
