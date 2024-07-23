@@ -42,7 +42,7 @@ def main():
     if st.button(button_labels[3]):
         button_clicked[button_labels[3]] = True
 
-    # ボタンの状態に応じてメッセージを表示する
+    # 選択された国名を表示する
     selected_countries = [label for label, clicked in button_clicked.items() if clicked]
     if selected_countries:
         st.subheader('選択された国名')
@@ -51,13 +51,23 @@ def main():
     # ボタンのラベルを表示する
     col1, col2 = st.columns(2)
     with col1:
-        st.write(button_labels[0])
+        if not button_clicked[button_labels[0]]:
+            if st.button(button_labels[0]):
+                st.write(f'クリックされたボタン: {button_labels[0]}')
     with col2:
-        st.write(button_labels[1])
+        if not button_clicked[button_labels[1]]:
+            if st.button(button_labels[1]):
+                st.write(f'クリックされたボタン: {button_labels[1]}')
+
     with col1:
-        st.write(button_labels[2])
+        if not button_clicked[button_labels[2]]:
+            if st.button(button_labels[2]):
+                st.write(f'クリックされたボタン: {button_labels[2]}')
     with col2:
-        st.write(button_labels[3])
+        if not button_clicked[button_labels[3]]:
+            if st.button(button_labels[3]):
+                st.write(f'クリックされたボタン: {button_labels[3]}')
+
 
 if __name__ == '__main__':
     main()
