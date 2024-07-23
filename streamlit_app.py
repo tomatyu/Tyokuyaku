@@ -24,10 +24,7 @@ def main():
     unique_countries = sorted_df['国名'].unique()
     button_labels = random.sample(list(unique_countries), 4)
 
-    # ボタンを2x2のグリッドに配置する
-    col1, col2 = st.columns(2)
-
-    # ボタンが押されたかどうかの状態を保持する辞書
+    # ボタンの状態を保持するための辞書
     button_clicked = {
         button_labels[0]: False,
         button_labels[1]: False,
@@ -35,7 +32,7 @@ def main():
         button_labels[3]: False
     }
 
-    # ボタンが押された場合、そのボタンの状態を更新する
+    # ボタンが押されたかどうかを判定し、状態を更新する
     if st.button(button_labels[0]):
         button_clicked[button_labels[0]] = True
     if st.button(button_labels[1]):
@@ -51,16 +48,16 @@ def main():
         st.subheader('選択された国名')
         st.write(selected_countries)
 
-    # ボタンのラベルは常に表示されるようにする
+    # ボタンのラベルを表示する
+    col1, col2 = st.columns(2)
     with col1:
-        st.button(button_labels[0])
+        st.write(button_labels[0])
     with col2:
-        st.button(button_labels[1])
+        st.write(button_labels[1])
     with col1:
-        st.button(button_labels[2])
+        st.write(button_labels[2])
     with col2:
-        st.button(button_labels[3])
-
+        st.write(button_labels[3])
 
 if __name__ == '__main__':
     main()
