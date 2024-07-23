@@ -6,14 +6,11 @@ import random
 df = None
 
 # データをランダムに4行抽出して読み込む関数
-
-if st.button("ランダムぅーっ‼"):
-  def load_data():
+def load_data():
     global df
     df = pd.read_excel("28.xlsx")
     random_indices = random.sample(range(len(df)), min(4, len(df)))  # ランダムな行インデックスを取得する
     return df.iloc[random_indices]  # ランダムに抽出した行を取得する
-    
 
 def main():
     global df
@@ -79,4 +76,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    random
