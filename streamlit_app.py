@@ -30,20 +30,18 @@ def main():
     # ボタン用のラベルをランダムに選び、4つに制限する
     button_labels = random.sample(list(unique_countries), 4)
 
-    # ボタンを生成してクリックされた順番を記録する
-    clicked_order = []
-    for label in button_labels:
-        if st.button(label):
-            clicked_order.append(label)
-
-    # 正しい順番を取得する
-    correct_order = sorted(sorted_df['国名'].tolist())  # 昇順でソートした正解のリスト
-
-    # 結果を判定する
-    if clicked_order == correct_order:
-        st.write("正解です")
-    else:
-        st.write("不正解です")
+    # ボタンを2x2のグリッドに配置する
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button(button_labels[0]):
+            st.write(f'クリックされたボタン: {button_labels[0]}')
+        if st.button(button_labels[1]):
+            st.write(f'クリックされたボタン: {button_labels[1]}')
+    with col2:
+        if st.button(button_labels[2]):
+            st.write(f'クリックされたボタン: {button_labels[2]}')
+        if st.button(button_labels[3]):
+            st.write(f'クリックされたボタン: {button_labels[3]}')
 
 if __name__ == '__main__':
     main()
