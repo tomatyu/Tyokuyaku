@@ -13,9 +13,6 @@ if st.button("ランダムぅーっ‼"):
     df = pd.read_excel("28.xlsx")
     random_indices = random.sample(range(len(df)), min(4, len(df)))  # ランダムな行インデックスを取得する
     return df.iloc[random_indices]  # ランダムに抽出した行を取得する
-    df = load_data()
-    sorted_df = df.sort_values(by='緯度', ascending=True)
-
     
 
 def main():
@@ -23,7 +20,16 @@ def main():
 
     st.title('Excelデータのランダムなソート')
 
+    # データがまだ読み込まれていない場合は読み込む
+    if df is None:
+        df = load_data()
+
     
+    
+
+    # 数値列で昇順にソートする
+    sorted_df = df.sort_values(by='緯度', ascending=True)
+
     # ソート後のデータを表示
     
 
@@ -71,4 +77,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-   
+    
