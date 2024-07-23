@@ -74,4 +74,4 @@ if st.button("ランダム"):
 
 if __name__ == '__main__':
     main()
-    random
+    
