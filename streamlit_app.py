@@ -23,6 +23,10 @@ if mode == 'Pen':
     previous_point = None
 
     # マウスイベントの処理
+    def draw_on_image(image, draw, start, end, color, size):
+        draw.line([start, end], fill=color, width=size)
+        return image
+
     if canvas.image is None:
         canvas.image = Image.new('RGB', (canvas_size, canvas_size), 'white')
 
@@ -30,5 +34,6 @@ if mode == 'Pen':
         canvas.image = Image.new('RGB', (canvas_size, canvas_size), 'white')
 
     # マウスイベントの処理
-    canvas = st_canvas(
-        fill_color="rgba(255, 165, 0, 0. So have among so also? had
+    def draw_on_image(image, draw, start, end, color, size):
+        draw.line([start, end], fill=color, width=size)
+        return image
