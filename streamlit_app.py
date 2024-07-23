@@ -53,7 +53,9 @@ def main():
         if st.button(button_labels[3]):
             st.write(f'クリックされたボタン: {button_labels[3]}')
 
-if __name__ == '__main__':
-    main()
 if st.button:
     st.write("今日は")
+
+if __name__ == '__main__':
+    main()
+
