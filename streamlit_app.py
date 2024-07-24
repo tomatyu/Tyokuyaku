@@ -18,12 +18,14 @@ def main():
     # データがまだ読み込まれていない場合は初回読み込み
     if df is None:
         load_data()
+    if st.button("ランダム"):
+        sorted_df = df.sort_values(by='緯度', ascending=True)
+        unique_countries = sorted_df['国名'].unique()
+        button_labels = random.sample(list(unique_countries), 4)
+
 
     # ボタン用のラベルをランダムに選ぶ
-    sorted_df = df.sort_values(by='緯度', ascending=True)
-    unique_countries = sorted_df['国名'].unique()
-    button_labels = random.sample(list(unique_countries), 4)
-
+    
     # ボタンの状態を保持するための辞書
     button_clicked = {
         button_labels[0]: False,
@@ -34,6 +36,7 @@ def main():
 
     # 選択された国名を保持するリスト
     selected_countries = []
+    
 
     # ボタンが押されたかどうかを判定し、状態を更新する
     col1, col2 = st.columns(2)
@@ -59,6 +62,7 @@ def main():
     if selected_countries:
         st.subheader('選択された国名')
         st.write(selected_countries)
+
 
 if __name__ == '__main__':
     main()
