@@ -6,6 +6,7 @@ import random
 df = None
 selected_country = None  # 選択された国名を保持する変数
 min_latitude_country = None  # 最小の緯度を持つ国名を保持する変数
+options = []  # 選択肢を保持するリスト
 
 # 初期データの読み込み
 def load_data():
@@ -15,7 +16,7 @@ def load_data():
     selected_country = min_latitude_country  # 最初の問題として最小緯度の国名を設定
 
 def main():
-    global df, selected_country, min_latitude_country
+    global df, selected_country, min_latitude_country, options
 
     # データがまだ読み込まれていない場合は初回読み込み
     if df is None:
@@ -26,12 +27,6 @@ def main():
     # 問題更新のボタン
     if st.button("問題を更新"):
         update_question()
-
-    # 固定の選択肢として selected_country を含むランダムな3つの国を選ぶ
-    unique_countries = df['国名'].unique()
-    other_countries = random.sample(list(unique_countries), 3)
-    options = [selected_country] + other_countries
-    random.shuffle(options)
 
     # 選択肢を表示
     st.subheader('以下の国の中から、どれが緯度が最小の国でしょう？')
@@ -50,7 +45,7 @@ def main():
             check_answer(options[3])
 
 def update_question():
-    global selected_country
+    global selected_country, options
 
     # データからランダムに新しい問題を選ぶ
     unique_countries = df['国名'].unique()
@@ -61,6 +56,11 @@ def update_question():
         new_selected_country = random.choice(unique_countries)
 
     selected_country = new_selected_country
+
+    # 選択肢を設定
+    other_countries = random.sample(list(unique_countries), 3)
+    options = [selected_country] + other_countries
+    random.shuffle(options)
 
     # 問題を更新したことを通知
     st.write("新しい問題を更新しました！")
