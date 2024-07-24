@@ -35,16 +35,16 @@ def main():
     st.subheader('以下の国の中から、どれが緯度が最小の国でしょう？')
     col1, col2 = st.columns(2)
     with col1:
-        if st.button(options[0]):
+        if st.button(label=options[0]):
             check_answer(options[0])
     with col2:
-        if st.button(options[1]):
+        if st.button(label=options[1]):
             check_answer(options[1])
     with col1:
-        if st.button(options[2]):
+        if st.button(label=options[2]):
             check_answer(options[2])
     with col2:
-        if st.button(options[3]):
+        if st.button(label=options[3]):
             check_answer(options[3])
 
 def update_question():
