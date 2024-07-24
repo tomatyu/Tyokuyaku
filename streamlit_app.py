@@ -37,23 +37,30 @@ def main():
 
         # 選択された国名を表示する
         col1, col2 = st.columns(2)
-        with col1:
-            if st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
-                button_clicked[button_labels[0]] = True
-                selected_countries.append(button_labels[0])
-        with col2:
-            if st.button(button_labels[1]) and not button_clicked[button_labels[1]]:
-                button_clicked[button_labels[1]] = True
-                selected_countries.append(button_labels[1])
+        button_container1 = st.empty()
+        button_container2 = st.empty()
 
         with col1:
-            if st.button(button_labels[2]) and not button_clicked[button_labels[2]]:
+            if button_container1.button(button_labels[0]) and not button_clicked[button_labels[0]]:
+                button_clicked[button_labels[0]] = True
+                selected_countries.append(button_labels[0])
+                button_container1.empty()  # ボタンを消去
+        with col2:
+            if button_container1.button(button_labels[1]) and not button_clicked[button_labels[1]]:
+                button_clicked[button_labels[1]] = True
+                selected_countries.append(button_labels[1])
+                button_container1.empty()  # ボタンを消去
+
+        with col1:
+            if button_container2.button(button_labels[2]) and not button_clicked[button_labels[2]]:
                 button_clicked[button_labels[2]] = True
                 selected_countries.append(button_labels[2])
+                button_container2.empty()  # ボタンを消去
         with col2:
-            if st.button(button_labels[3]) and not button_clicked[button_labels[3]]:
+            if button_container2.button(button_labels[3]) and not button_clicked[button_labels[3]]:
                 button_clicked[button_labels[3]] = True
                 selected_countries.append(button_labels[3])
+                button_container2.empty()  # ボタンを消去
 
     # ユーザーが選んだ国名と正解を比較して結果を表示
     if selected_countries:
