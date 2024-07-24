@@ -5,15 +5,17 @@ import random
 # グローバル変数としてデータフレームを宣言
 df = None
 selected_country = None  # 選択された国名を保持する変数
+min_latitude_country = None  # 最小の緯度を持つ国名を保持する変数
 
 # 初期データの読み込み
 def load_data():
-    global df, selected_country
+    global df, selected_country, min_latitude_country
     df = pd.read_excel("28.xlsx")
-    selected_country = df.loc[df['緯度'].idxmin(), '国名']  # 緯度が最小の国を初期選択国とする
+    min_latitude_country = df.loc[df['緯度'].idxmin(), '国名']  # 緯度が最小の国を初期選択国とする
+    selected_country = min_latitude_country  # 最初の問題として最小緯度の国名を設定
 
 def main():
-    global df, selected_country
+    global df, selected_country, min_latitude_country
 
     # データがまだ読み込まれていない場合は初回読み込み
     if df is None:
@@ -52,7 +54,13 @@ def update_question():
 
     # データからランダムに新しい問題を選ぶ
     unique_countries = df['国名'].unique()
-    selected_country = random.choice(unique_countries)
+    new_selected_country = random.choice(unique_countries)
+
+    # 最小緯度の国名と同じ場合、別の国名を選ぶ
+    while new_selected_country == min_latitude_country:
+        new_selected_country = random.choice(unique_countries)
+
+    selected_country = new_selected_country
 
     # 問題を更新したことを通知
     st.write("新しい問題を更新しました！")
