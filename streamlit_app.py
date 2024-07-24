@@ -4,6 +4,7 @@ import random
 
 # グローバル変数としてデータフレームを宣言
 df = None
+selected_countries = []  # 選択された国名を保持するリスト
 
 # 初期データの読み込み
 def load_data():
@@ -11,7 +12,7 @@ def load_data():
     df = pd.read_excel("28.xlsx")
 
 def main():
-    global df
+    global df, selected_countries
 
     # データがまだ読み込まれていない場合は初回読み込み
     if df is None:
@@ -34,10 +35,7 @@ def main():
         button_labels = random.sample(list(unique_countries), 4)
         button_clicked = {label: False for label in button_labels}
 
-        # 選択された国名を保持するリスト
-        selected_countries = []
-
-        # ボタンが押されたかどうかを判定し、状態を更新する
+        # 選択された国名を表示する
         col1, col2 = st.columns(2)
         with col1:
             if st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
@@ -57,16 +55,16 @@ def main():
                 button_clicked[button_labels[3]] = True
                 selected_countries.append(button_labels[3])
 
-        # 選択された国名を表示する
-        if selected_countries:
-            st.subheader('選択された国名')
-            st.write(selected_countries)
+    # ユーザーが選んだ国名と正解を比較して結果を表示
+    if selected_countries:
+        st.subheader('選択された国名')
+        st.write(selected_countries)
 
-            # 正解判定
-            if country in selected_countries:
-                st.write("正解")
-            else:
-                st.write("不正解")
+        # 正解判定
+        if country in selected_countries:
+            st.write("正解")
+        else:
+            st.write("不正解")
 
 if __name__ == '__main__':
     main()
