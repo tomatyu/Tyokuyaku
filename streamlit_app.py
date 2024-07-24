@@ -41,16 +41,20 @@ def main():
         with col1:
             if st.button(button_labels[0]):
                 selected_countries.append(button_labels[0])
+                st.write(f"選択した国: {button_labels[0]}")
         with col2:
             if st.button(button_labels[1]):
                 selected_countries.append(button_labels[1])
+                st.write(f"選択した国: {button_labels[1]}")
 
         with col1:
             if st.button(button_labels[2]):
                 selected_countries.append(button_labels[2])
+                st.write(f"選択した国: {button_labels[2]}")
         with col2:
             if st.button(button_labels[3]):
                 selected_countries.append(button_labels[3])
+                st.write(f"選択した国: {button_labels[3]}")
 
     # ユーザーが選んだ国名と正解を比較して結果を表示
     if selected_countries:
