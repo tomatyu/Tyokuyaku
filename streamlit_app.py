@@ -47,7 +47,7 @@ def main():
 def update_question():
     global selected_country, options
 
-    # データからランダムに新しい問題を選ぶ
+    # データから新しい問題を選ぶ
     unique_countries = df['国名'].unique()
     new_selected_country = random.choice(unique_countries)
 
