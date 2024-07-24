@@ -13,11 +13,13 @@ def load_data():
 def main():
     global df
 
-    st.title('Excelデータのランダムなソート')
-
     # データがまだ読み込まれていない場合は初回読み込み
     if df is None:
         load_data()
+
+    st.title('Excelデータのランダムなソート')
+    min_latitude_row = df.loc[df['緯度'].idxmin()]
+    country = min_latitude_row['国名']
 
     # ランダムボタンのクリックとユニークな国名の取得
     if st.button("ランダム"):
@@ -60,6 +62,11 @@ def main():
             st.subheader('選択された国名')
             st.write(selected_countries)
 
+            # 正解判定
+            if country in selected_countries:
+                st.write("正解")
+            else:
+                st.write("不正解")
 
 if __name__ == '__main__':
     main()
