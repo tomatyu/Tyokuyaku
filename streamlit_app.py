@@ -18,43 +18,39 @@ def main():
     # データがまだ読み込まれていない場合は初回読み込み
     if df is None:
         load_data()
+
     if st.button("ランダム"):
+        # ランダムに4つの国名を選ぶ
         sorted_df = df.sort_values(by='緯度', ascending=True)
         unique_countries = sorted_df['国名'].unique()
-        button_labels = random.sample(list(unique_countries), 4)
+        if len(unique_countries) >= 4:
+            button_labels = random.sample(list(unique_countries), 4)
+        else:
+            button_labels = list(unique_countries)
 
-
-    # ボタン用のラベルをランダムに選ぶ
-    
-    # ボタンの状態を保持するための辞書
-    button_clicked = {
-        button_labels[0]: False,
-        button_labels[1]: False,
-        button_labels[2]: False,
-        button_labels[3]: False
-    }
+    # ボタンの状態を保持するための辞書を初期化
+    button_clicked = {label: False for label in button_labels}
 
     # 選択された国名を保持するリスト
     selected_countries = []
-    
 
     # ボタンが押されたかどうかを判定し、状態を更新する
     col1, col2 = st.columns(2)
     with col1:
-        if st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
+        if button_labels and st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
             button_clicked[button_labels[0]] = True
             selected_countries.append(button_labels[0])
     with col2:
-        if st.button(button_labels[1]) and not button_clicked[button_labels[1]]:
+        if len(button_labels) > 1 and st.button(button_labels[1]) and not button_clicked[button_labels[1]]:
             button_clicked[button_labels[1]] = True
             selected_countries.append(button_labels[1])
 
     with col1:
-        if st.button(button_labels[2]) and not button_clicked[button_labels[2]]:
+        if len(button_labels) > 2 and st.button(button_labels[2]) and not button_clicked[button_labels[2]]:
             button_clicked[button_labels[2]] = True
             selected_countries.append(button_labels[2])
     with col2:
-        if st.button(button_labels[3]) and not button_clicked[button_labels[3]]:
+        if len(button_labels) > 3 and st.button(button_labels[3]) and not button_clicked[button_labels[3]]:
             button_clicked[button_labels[3]] = True
             selected_countries.append(button_labels[3])
 
