@@ -19,45 +19,46 @@ def main():
     if df is None:
         load_data()
 
+    # ランダムボタンのクリックとユニークな国名の取得
     if st.button("ランダム"):
-        # ランダムに4つの国名を選ぶ
         sorted_df = df.sort_values(by='緯度', ascending=True)
         unique_countries = sorted_df['国名'].unique()
-        if len(unique_countries) >= 4:
-            button_labels = random.sample(list(unique_countries), 4)
-        else:
-            button_labels = list(unique_countries)
 
-    # ボタンの状態を保持するための辞書を初期化
-    button_clicked = {label: False for label in button_labels}
+        # ユニークな国名がない場合のエラーハンドリング
+        if len(unique_countries) < 4:
+            st.error("データから4つの国をランダムに選ぶには、少なくとも4つの異なる国が必要です。")
+            return
 
-    # 選択された国名を保持するリスト
-    selected_countries = []
+        button_labels = random.sample(list(unique_countries), 4)
+        button_clicked = {label: False for label in button_labels}
 
-    # ボタンが押されたかどうかを判定し、状態を更新する
-    col1, col2 = st.columns(2)
-    with col1:
-        if button_labels and st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
-            button_clicked[button_labels[0]] = True
-            selected_countries.append(button_labels[0])
-    with col2:
-        if len(button_labels) > 1 and st.button(button_labels[1]) and not button_clicked[button_labels[1]]:
-            button_clicked[button_labels[1]] = True
-            selected_countries.append(button_labels[1])
+        # 選択された国名を保持するリスト
+        selected_countries = []
 
-    with col1:
-        if len(button_labels) > 2 and st.button(button_labels[2]) and not button_clicked[button_labels[2]]:
-            button_clicked[button_labels[2]] = True
-            selected_countries.append(button_labels[2])
-    with col2:
-        if len(button_labels) > 3 and st.button(button_labels[3]) and not button_clicked[button_labels[3]]:
-            button_clicked[button_labels[3]] = True
-            selected_countries.append(button_labels[3])
+        # ボタンが押されたかどうかを判定し、状態を更新する
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
+                button_clicked[button_labels[0]] = True
+                selected_countries.append(button_labels[0])
+        with col2:
+            if st.button(button_labels[1]) and not button_clicked[button_labels[1]]:
+                button_clicked[button_labels[1]] = True
+                selected_countries.append(button_labels[1])
 
-    # 選択された国名を表示する
-    if selected_countries:
-        st.subheader('選択された国名')
-        st.write(selected_countries)
+        with col1:
+            if st.button(button_labels[2]) and not button_clicked[button_labels[2]]:
+                button_clicked[button_labels[2]] = True
+                selected_countries.append(button_labels[2])
+        with col2:
+            if st.button(button_labels[3]) and not button_clicked[button_labels[3]]:
+                button_clicked[button_labels[3]] = True
+                selected_countries.append(button_labels[3])
+
+        # 選択された国名を表示する
+        if selected_countries:
+            st.subheader('選択された国名')
+            st.write(selected_countries)
 
 
 if __name__ == '__main__':
