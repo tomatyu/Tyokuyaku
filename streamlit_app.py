@@ -54,6 +54,7 @@ def update_question():
     unique_countries = df['国名'].unique()
     selected_country = random.choice(unique_countries)
 
+    # 問題を更新したことを通知
     st.write("新しい問題を更新しました！")
 
 def check_answer(answer):
