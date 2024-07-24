@@ -21,7 +21,11 @@ def main():
 
     st.title('国名クイズ')
 
-    # 選択された国名以外の3つの国をランダムに選ぶ
+    # 問題更新のボタン
+    if st.button("問題を更新"):
+        update_question()
+
+    # 固定の選択肢として selected_country を含むランダムな3つの国を選ぶ
     unique_countries = df['国名'].unique()
     other_countries = random.sample(list(unique_countries), 3)
     options = [selected_country] + other_countries
@@ -42,6 +46,15 @@ def main():
     with col2:
         if st.button(options[3]):
             check_answer(options[3])
+
+def update_question():
+    global selected_country
+
+    # データからランダムに新しい問題を選ぶ
+    unique_countries = df['国名'].unique()
+    selected_country = random.choice(unique_countries)
+
+    st.write("新しい問題を更新しました！")
 
 def check_answer(answer):
     global selected_country
