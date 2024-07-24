@@ -1,38 +1,64 @@
 import streamlit as st
-from PIL import Image, ImageDraw
+import pandas as pd
+import random
 
-# アプリケーションのタイトルを設定
-st.title('Simple Drawing App')
+# グローバル変数としてデータフレームを宣言
+df = None
 
-# Canvasのサイズを設定
-canvas_size = st.slider('Canvas Size', 200, 800, 400)
+# 初期データの読み込み
+def load_data():
+    global df
+    df = pd.read_excel("28.xlsx")
 
-# 描画用のキャンバスを作成
-canvas_image = Image.new('RGB', (canvas_size, canvas_size), 'white')
-draw = ImageDraw.Draw(canvas_image)
+def main():
+    global df
 
-# 描画モードの選択
-mode = st.radio('Drawing Tool', ('Pen', 'Eraser'))
+    st.title('Excelデータのランダムなソート')
 
-if mode == 'Pen':
-    draw_color = st.color_picker('Choose pen color', '#000000')
-    pen_size = st.slider('Pen size', 1, 20, 5)
+    # データがまだ読み込まれていない場合は初回読み込み
+    if df is None:
+        load_data()
 
-    # マウスの状態を追跡するための変数
-    dragging = False
-    previous_point = None
+    # ボタン用のラベルをランダムに選ぶ
+    sorted_df = df.sort_values(by='緯度', ascending=True)
+    unique_countries = sorted_df['国名'].unique()
+    button_labels = random.sample(list(unique_countries), 4)
 
-    # マウスイベントの処理
-    def draw_on_image(image, draw, start, end, color, size):
-        draw.line([start, end], fill=color, width=size)
-        return image
+    # ボタンの状態を保持するための辞書
+    button_clicked = {
+        button_labels[0]: False,
+        button_labels[1]: False,
+        button_labels[2]: False,
+        button_labels[3]: False
+    }
 
-    if st.button('Clear Canvas'):
-        canvas_image = Image.new('RGB', (canvas_size, canvas_size), 'white')
+    # 選択された国名を保持するリスト
+    selected_countries = []
 
-    # 描画ツールのロジックを追加する
+    # ボタンが押されたかどうかを判定し、状態を更新する
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button(button_labels[0]) and not button_clicked[button_labels[0]]:
+            button_clicked[button_labels[0]] = True
+            selected_countries.append(button_labels[0])
+    with col2:
+        if st.button(button_labels[1]) and not button_clicked[button_labels[1]]:
+            button_clicked[button_labels[1]] = True
+            selected_countries.append(button_labels[1])
 
-# Streamlitの画面にキャンバスを表示する
-st.image(canvas_image)
+    with col1:
+        if st.button(button_labels[2]) and not button_clicked[button_labels[2]]:
+            button_clicked[button_labels[2]] = True
+            selected_countries.append(button_labels[2])
+    with col2:
+        if st.button(button_labels[3]) and not button_clicked[button_labels[3]]:
+            button_clicked[button_labels[3]] = True
+            selected_countries.append(button_labels[3])
 
-# 必要な場所で最終のcanvas_imag
+    # 選択された国名を表示する
+    if selected_countries:
+        st.subheader('選択された国名')
+        st.write(selected_countries)
+
+if __name__ == '__main__':
+    main()
