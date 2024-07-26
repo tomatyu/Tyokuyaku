@@ -14,7 +14,7 @@ countries_df = load_data()
 
 # サイドバーでの単語入力
 st.sidebar.header("単語入力")
-inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(10)]
+inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(50)]
 
 # メインエリア
 st.title("$古文直訳writer$")
