@@ -1,12 +1,14 @@
 import streamlit as st
 
-# 初回実行時に状態を初期化
-if 'count' not in st.session_state:
-    st.session_state.count = 0
+# セッション状態に「input」が存在しない場合、初期化
+if 'input' not in st.session_state:
+    st.session_state.input = ""
 
-# ボタンが押されたときに状態を更新
-if st.button('Increment'):
-    st.session_state.count += 1
+# 入力フィールド
+user_input = st.text_input("Enter something:", value=st.session_state.input)
 
-# 状態の表示
-st.write(f'Count: {st.session_state.count}')
+# 入力内容をセッション状態に保存
+st.session_state.input = user_input
+
+# ページの上部にユーザーの入力内容を表示
+st.write(f"Your input: {st.session_state.input}")
