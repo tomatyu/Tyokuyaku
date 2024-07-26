@@ -1,10 +1,21 @@
 import streamlit as st
 import pandas as pd
 
+# セッション状態に「input」が存在しない場合、初期化
+if 'input' not in st.session_state:
+    st.session_state.input = ""
+
+# 入力フィールドの表示とセッション状態への保存
+user_input = st.text_input("Enter something:", value=st.session_state.input)
+st.session_state.input = user_input
+
+# ページの上部にユーザーの入力内容を表示
+st.write(f"Your input: {st.session_state.input}")
+
 # Excelをロードする関数
 def load_data():
     try:
-        return pd.read_excel("1s.xlsx")  # 拡張子を確認してください
+        return pd.read_excel("1s.xlsx")  # Excelファイルの拡張子を確認してください
     except Exception as e:
         st.error(f"ファイルの読み込みに失敗しました: {e}")
         return pd.DataFrame()  # 空のデータフレームを返す
@@ -19,7 +30,7 @@ st.write("上から文節ごとに入力していってください。（最大1
 # 単語入力欄
 inputs = [st.text_input(f"単語 {i+1}") for i in range(10)]
 
-# 「国を表示」ボタンがクリックされたときの処理
+# 「直訳を表示」ボタンがクリックされたときの処理
 if st.button('直訳を表示'):
     meanings = []
     for word in inputs:
