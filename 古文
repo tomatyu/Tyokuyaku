@@ -1,0 +1,20 @@
+import streamlit as st
+import pandas as pd
+
+#　excelをロード
+def load_data():
+    return pd.read_excel("1s.Axlsx")
+#　タイトル
+st.title("_古文直訳writter_")
+st.write("上から文節ごとに入力していってください。（最大10単語適応）")
+#  単語入力欄
+a = st.text_input("")
+b = st.text_input("")
+c = st.text_input("")
+d = st.text_input("")
+e = st.text_input("")
+f = st.text_input("")
+g = st.text_input("")
+h = st.text_input("")
+i = st.text_input("")
+j = st.text_input("")
