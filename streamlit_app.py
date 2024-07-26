@@ -14,11 +14,11 @@ countries_df = load_data()
 
 # サイドバーでの単語入力
 st.sidebar.header("単語入力")
-inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(50)]
+inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(60)]
 
 # メインエリア
 st.title("$古文直訳writer$")
-st.write("上から文節ごとに:red[ひらがなで]入力してください。（最大10単語適応）")
+st.write("上から文節ごとに:red[ひらがなで]入力してください。（最大60単語適応）")
 
 # 「直訳を表示」ボタンがクリックされたときの処理
 if st.button('直訳を表示'):
