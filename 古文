@@ -3,6 +3,7 @@ import pandas as pd
 
 #　excelをロード
 def load_data():
+countries_df = load_data()
     return pd.read_excel("1s.Axlsx")
 #　タイトル
 st.title("_古文直訳writter_")
@@ -18,3 +19,28 @@ g = st.text_input("")
 h = st.text_input("")
 i = st.text_input("")
 j = st.text_input("")
+
+
+    
+if st.button('国を表示'):
+    kv = countries_df[countries_df["国名"] == a]
+    kv2 = countries_df[countries_df["国名"] == a]
+    kv3 = countries_df[countries_df["国名"] == a]
+    kv4 = countries_df[countries_df["国名"] == a]
+    kv5 = countries_df[countries_df["国名"] == a]
+    kv6 = countries_df[countries_df["国名"] == a]
+    kv7 = countries_df[countries_df["国名"] == a]
+    kv8 = countries_df[countries_df["国名"] == a]
+    kv9 = countries_df[countries_df["国名"] == a]
+    kv10 = countries_df[countries_df["国名"] == a]
+    if not kv.empty:
+        if not kv2.empty:
+            if not kv3.empty:
+               if not kv4.empty:
+                if not kv5.empty:
+                  if not kv6.empty:
+                 if not kv7.empty:
+                    if not kv8.empty:
+                       if not kv9.empty:
+                          if not kv10.empty:
+                             st.write("")
