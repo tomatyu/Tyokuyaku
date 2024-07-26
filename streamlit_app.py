@@ -19,7 +19,7 @@ st.write("上から文節ごとに入力していってください。（最大1
 # 入力フィールドを作成
 inputs = [st.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(10)]
 
-# 入力内容をページの上部に表示
+# 入力内容をタイトルの下に表示
 st.write("### 入力された単語:")
 for i, word in enumerate(inputs):
     if word.strip():  # 空でない単語のみ表示
