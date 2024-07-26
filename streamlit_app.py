@@ -4,7 +4,7 @@ import pandas as pd
 # Excelをロードする関数
 def load_data():
     try:
-        return pd.read_excel("28.xlsx")  # 拡張子を確認してください
+        return pd.read_excel("1s.xlsx")  # 拡張子を確認してください
     except Exception as e:
         st.error(f"ファイルの読み込みに失敗しました: {e}")
         return pd.DataFrame()  # 空のデータフレームを返す
@@ -24,9 +24,9 @@ if st.button('直訳を表示'):
     meanings = []
     for word in inputs:
         if word.strip() != "":  # 空でない単語のみ検索
-            kv = countries_df[countries_df["国名"] == word]
+            kv = countries_df[countries_df["単語"] == word]
             if not kv.empty:
-                meanings.append(kv["首都"].iloc[0])
+                meanings.append(kv["意味"].iloc[0])
             else:
                 meanings.append(f"'{word}' の検索結果が見つかりませんでした")
         else:
