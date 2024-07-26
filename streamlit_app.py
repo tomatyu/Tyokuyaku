@@ -27,22 +27,20 @@ def main():
     # 問題更新のボタン
     if st.button("問題を更新"):
         update_question()
+    
+    # 選択肢がまだ設定されていない場合は初回設定
+    if not options:
+        update_question()
 
-    # 選択肢を表示
+    # 問題の表示
     st.subheader('以下の国の中から、どれが緯度が最小の国でしょう？')
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button(label=options[0]):
-            check_answer(options[0])
-    with col2:
-        if st.button(label=options[1]):
-            check_answer(options[1])
-    with col1:
-        if st.button(label=options[2]):
-            check_answer(options[2])
-    with col2:
-        if st.button(label=options[3]):
-            check_answer(options[3])
+    
+    # ボタンを使って選択肢を表示
+    cols = st.columns(2)
+    for i, option in enumerate(options):
+        with cols[i % 2]:
+            if st.button(option):
+                check_answer(option)
 
 def update_question():
     global selected_country, options
@@ -63,16 +61,19 @@ def update_question():
     random.shuffle(options)
 
     # 問題を更新したことを通知
-    st.write("新しい問題を更新しました！")
+    st.session_state.message = "新しい問題を更新しました！"
 
 def check_answer(answer):
     global selected_country
 
     # 選択された国が正解かどうかを判定
     if answer == selected_country:
-        st.write("正解！")
+        st.session_state.message = "正解！"
     else:
-        st.write("不正解…")
+        st.session_state.message = "不正解…"
+
+    # メッセージを表示
+    st.write(st.session_state.message)
 
 if __name__ == '__main__':
     main()
