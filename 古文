@@ -1,46 +1,37 @@
 import streamlit as st
 import pandas as pd
 
-#　excelをロード
+# Excelをロードする関数
 def load_data():
+    try:
+        return pd.read_excel("1s.xlsx")  # 拡張子を確認してください
+    except Exception as e:
+        st.error(f"ファイルの読み込みに失敗しました: {e}")
+        return pd.DataFrame()  # 空のデータフレームを返す
+
+# データの読み込み
 countries_df = load_data()
-    return pd.read_excel("1s.Axlsx")
-#　タイトル
-st.title("_古文直訳writter_")
+
+# タイトル
+st.title("$古文直訳writer$")
 st.write("上から文節ごとに入力していってください。（最大10単語適応）")
-#  単語入力欄
-a = st.text_input("")
-b = st.text_input("")
-c = st.text_input("")
-d = st.text_input("")
-e = st.text_input("")
-f = st.text_input("")
-g = st.text_input("")
-h = st.text_input("")
-i = st.text_input("")
-j = st.text_input("")
 
+# 単語入力欄
+inputs = [st.text_input(f"単語 {i+1}") for i in range(10)]
 
+# 「国を表示」ボタンがクリックされたときの処理
+if st.button('直訳を表示'):
+    meanings = []
+    for word in inputs:
+        if word.strip() != "":  # 空でない単語のみ検索
+            kv = countries_df[countries_df["古文"] == word]
+            if not kv.empty:
+                meanings.append(kv["意味"].iloc[0])
+            else:
+                meanings.append(f"'{word}' の検索結果が見つかりませんでした")
+        else:
+            meanings.append("")
     
-if st.button('国を表示'):
-    kv = countries_df[countries_df["国名"] == a]
-    kv2 = countries_df[countries_df["国名"] == a]
-    kv3 = countries_df[countries_df["国名"] == a]
-    kv4 = countries_df[countries_df["国名"] == a]
-    kv5 = countries_df[countries_df["国名"] == a]
-    kv6 = countries_df[countries_df["国名"] == a]
-    kv7 = countries_df[countries_df["国名"] == a]
-    kv8 = countries_df[countries_df["国名"] == a]
-    kv9 = countries_df[countries_df["国名"] == a]
-    kv10 = countries_df[countries_df["国名"] == a]
-    if not kv.empty:
-        if not kv2.empty:
-            if not kv3.empty:
-               if not kv4.empty:
-                if not kv5.empty:
-                  if not kv6.empty:
-                 if not kv7.empty:
-                    if not kv8.empty:
-                       if not kv9.empty:
-                          if not kv10.empty:
-                             st.write("")
+    # 検索結果の表示
+    st.write("検索結果:")
+    st.write(" ".join(meanings))
