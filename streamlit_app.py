@@ -12,29 +12,29 @@ def load_data():
 # データの読み込み
 countries_df = load_data()
 
-# タイトル
-st.title("$古文直訳writer$")
-st.write("上から文節ごとに入力していってください。（最大10単語適応）")
+# サイドバーでの選択
+selected_tab = st.sidebar.radio("選択してください", ["単語入力", "検索結果"])
 
-# タブの作成
-tab1, tab2 = st.tabs(["単語入力", "検索結果"])
+# メインエリアの表示内容を制御
+if selected_tab == "単語入力":
+    # タイトル
+    st.title("$古文直訳writer$")
+    st.write("上から文節ごとに入力していってください。（最大10単語適応）")
 
-# タブ1: 単語入力
-with tab1:
     # 単語入力欄
     inputs = [st.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(10)]
-    st.write("入力された単語:")
-    for i, word in enumerate(inputs):
-        if word.strip():  # 空でない単語のみ表示
-            st.write(f"単語 {i+1}: {word}")
 
-# タブ2: 検索結果
-with tab2:
+    # 表示用のセッションステートに入力内容を保存
+    if 'inputs' not in st.session_state:
+        st.session_state.inputs = [None] * 10
+    st.session_state.inputs = inputs
+
+elif selected_tab == "検索結果":
     # 「直訳を表示」ボタンがクリックされたときの処理
     if st.button('直訳を表示'):
         meanings = []
-        for word in inputs:
-            if word.strip() != "":  # 空でない単語のみ検索
+        for word in st.session_state.inputs:
+            if word and word.strip() != "":  # 空でない単語のみ検索
                 kv = countries_df[countries_df["古文"] == word]
                 if not kv.empty:
                     meanings.append(kv["意味"].iloc[0])
