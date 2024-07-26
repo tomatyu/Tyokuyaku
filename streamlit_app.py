@@ -18,7 +18,7 @@ inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in rang
 
 # メインエリア
 st.title("$古文直訳writer$")
-st.write("上から文節ごとに入力していってください。（最大10単語適応）")
+st.write("上から文節ごとに:red[ひらがなで]入力してください。（最大10単語適応）")
 
 # 「直訳を表示」ボタンがクリックされたときの処理
 if st.button('直訳を表示'):
@@ -34,5 +34,4 @@ if st.button('直訳を表示'):
             meanings.append("")
     
     # 検索結果を表示
-    st.write("### 検索結果:")
     st.write(" ".join(meanings))
