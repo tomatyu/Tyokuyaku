@@ -4,7 +4,6 @@ import random
 
 # グローバル変数としてデータフレームを宣言
 df = None
-selected_country = None  # 現在の問題で選ばれている国名
 min_latitude_country = None  # 最小の緯度を持つ国名
 options = []  # 選択肢を保持するリスト
 
@@ -31,10 +30,10 @@ def update_question():
 # ユーザーの回答をチェックする関数
 def check_answer(answer):
     if answer == min_latitude_country:
-        st.session_state.message = "正解！"
+        st.session_state.message = f"正解！正解は「{min_latitude_country}」です。"
         st.session_state.correct = True
     else:
-        st.session_state.message = "不正解…"
+        st.session_state.message = f"不正解…「{answer}」は正しくありません。正解は「{min_latitude_country}」です。"
         st.session_state.correct = False
 
 def main():
