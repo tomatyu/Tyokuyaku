@@ -35,12 +35,12 @@ def update_question():
     st.session_state.message = "新しい問題が表示されています。"
     st.session_state.correct = None  # リセットする
     st.session_state.answer_submitted = False  # 回答状態のリセット
-    st.session_state.question_updated = True  # 問題が更新されたフラグを設定
+    st.session_state.question_updated = False  # 問題が更新されたフラグをリセット
 
 # ユーザーの回答をチェックする関数
 def check_answer(answer):
     if st.session_state.answer_submitted:
-        st.session_state.message = "すでに回答済みです。"
+        st.session_state.message = "すでに回答済みです。問題を更新してください。"
         return
 
     if answer == st.session_state.min_latitude_country:
@@ -54,7 +54,7 @@ def check_answer(answer):
 
     st.session_state.answer_submitted = True  # 回答済みフラグを設定
 
-    # 次の問題を自動的に更新
+    # 次の問題を自動的に更新するフラグを設定
     st.session_state.question_updated = True
 
 def reset_points():
@@ -97,7 +97,11 @@ def main():
     if st.sidebar.button('ポイントをリセット'):
         reset_points()
 
-    # 選択肢がまだ設定されていない場合は初回設定
+    # 問題更新のボタン
+    if st.button("問題を更新"):
+        update_question()
+
+    # 選択肢がまだ設定されていない、または問題が更新された場合は初回設定
     if not st.session_state.options or st.session_state.question_updated:
         update_question()
 
@@ -118,6 +122,11 @@ def main():
     # メッセージを表示
     if st.session_state.message:
         st.write(st.session_state.message)
+
+    # 次の問題の自動更新
+    if st.session_state.question_updated and st.session_state.answer_submitted:
+        st.session_state.question_updated = False
+        update_question()
 
 if __name__ == '__main__':
     main()
