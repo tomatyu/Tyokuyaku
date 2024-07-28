@@ -16,21 +16,12 @@ def load_data():
 
 # 新しい問題を更新する関数
 def update_question():
-    global selected_country, options
+    global options
 
-    # データから新しい問題を選ぶ
+    # データから選択肢を設定
     unique_countries = df['国名'].unique()
-    new_selected_country = random.choice(unique_countries)
-
-    # 最小緯度の国名と同じ場合、別の国名を選ぶ
-    while new_selected_country == min_latitude_country:
-        new_selected_country = random.choice(unique_countries)
-
-    selected_country = new_selected_country
-
-    # 選択肢を設定
-    other_countries = random.sample([c for c in unique_countries if c != selected_country], 3)
-    options = [selected_country] + other_countries
+    other_countries = random.sample([c for c in unique_countries if c != min_latitude_country], 3)
+    options = [min_latitude_country] + other_countries
     random.shuffle(options)
 
     # 問題を更新したことを通知
@@ -47,7 +38,7 @@ def check_answer(answer):
         st.session_state.correct = False
 
 def main():
-    global df, selected_country, options
+    global df, options
 
     # データがまだ読み込まれていない場合は初回読み込み
     if df is None:
