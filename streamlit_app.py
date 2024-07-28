@@ -35,6 +35,7 @@ def update_question():
     st.session_state.message = "新しい問題を更新しました！"
     st.session_state.correct = None  # リセットする
     st.session_state.answer_submitted = False  # 回答状態のリセット
+    st.session_state.question_updated = True  # 問題が更新されたフラグを設定
 
 # ユーザーの回答をチェックする関数
 def check_answer(answer):
@@ -52,6 +53,12 @@ def check_answer(answer):
         st.session_state.correct = False
 
     st.session_state.answer_submitted = True  # 回答済みフラグを設定
+
+# ポイントをリセットする関数
+def reset_points():
+    st.session_state.points = 0
+    st.session_state.message = "ポイントがリセットされました！"
+    st.session_state.reset_done = True  # リセットが行われたフラグを設定
 
 def main():
     global df
@@ -75,14 +82,28 @@ def main():
         st.session_state.points = 0  # 初期ポイントは0
     if 'answer_submitted' not in st.session_state:
         st.session_state.answer_submitted = False  # 回答状態の初期化
+    if 'reset_done' not in st.session_state:
+        st.session_state.reset_done = False  # リセット状態の初期化
+    if 'question_updated' not in st.session_state:
+        st.session_state.question_updated = False  # 問題更新状態の初期化
 
-    # 現在のポイントを表示
+    # サイドバーに現在のポイントとリセットボタンを表示
     st.sidebar.subheader('現在のポイント')
     st.sidebar.write(st.session_state.points)
 
-    # 問題更新のボタン
-    if st.button("問題を更新"):
-        update_question()
+    # リセットボタンを表示する（押されたら無効化する）
+    if not st.session_state.reset_done:
+        if st.sidebar.button('ポイントをリセット'):
+            reset_points()
+    else:
+        st.sidebar.button('ポイントをリセット', disabled=True)
+
+    # 問題更新のボタン（問題が更新されていない場合にのみ表示）
+    if not st.session_state.question_updated:
+        if st.button("問題を更新"):
+            update_question()
+    else:
+        st.button("問題を更新", disabled=True)
 
     # 選択肢がまだ設定されていない場合は初回設定
     if not st.session_state.options:
