@@ -99,11 +99,8 @@ def main():
         st.sidebar.button('ポイントをリセット', disabled=True)
 
     # 問題更新のボタン（問題が更新されていない場合にのみ表示）
-    if not st.session_state.question_updated:
-        if st.button("問題を更新"):
-            update_question()
-    else:
-        st.button("問題を更新", disabled=True)
+    if st.button("問題を更新"):
+        update_question()
 
     # 選択肢がまだ設定されていない場合は初回設定
     if not st.session_state.options:
