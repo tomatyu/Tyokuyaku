@@ -33,9 +33,11 @@ def update_question():
 def check_answer(answer):
     if answer == st.session_state.min_latitude_country:
         st.session_state.message = f"正解！正解は「{st.session_state.min_latitude_country}」です。"
+        st.session_state.points += 10  # 正解で10ポイント追加
         st.session_state.correct = True
     else:
         st.session_state.message = f"不正解…「{answer}」は正しくありません。正解は「{st.session_state.min_latitude_country}」です。"
+        st.session_state.points -= 10  # 不正解で10ポイント減算
         st.session_state.correct = False
 
 def main():
@@ -47,7 +49,7 @@ def main():
 
     st.title('国名クイズ')
 
-    # セッション状態にメッセージと正解フラグがない場合は初期化
+    # セッション状態にメッセージ、正解フラグ、ポイントがない場合は初期化
     if 'message' not in st.session_state:
         st.session_state.message = ''
     if 'correct' not in st.session_state:
@@ -56,6 +58,12 @@ def main():
         st.session_state.min_latitude_country = None
     if 'options' not in st.session_state:
         st.session_state.options = []
+    if 'points' not in st.session_state:
+        st.session_state.points = 0  # 初期ポイントは0
+
+    # 現在のポイントを表示
+    st.sidebar.subheader('現在のポイント')
+    st.sidebar.write(st.session_state.points)
 
     # 問題更新のボタン
     if st.button("問題を更新"):
