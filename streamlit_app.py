@@ -32,7 +32,7 @@ def update_question():
     # セッション状態を更新
     st.session_state.min_latitude_country = min_latitude_country
     st.session_state.options = options
-    st.session_state.message = "新しい問題を更新しました！"
+    st.session_state.message = "新しい問題が表示されています。"
     st.session_state.correct = None  # リセットする
     st.session_state.answer_submitted = False  # 回答状態のリセット
     st.session_state.question_updated = True  # 問題が更新されたフラグを設定
@@ -54,14 +54,14 @@ def check_answer(answer):
 
     st.session_state.answer_submitted = True  # 回答済みフラグを設定
 
-    # 回答後に自動的に問題を更新
-    st.experimental_rerun()
+    # 次の問題を自動的に更新
+    st.session_state.next_question = True
 
 # ポイントをリセットする関数
 def reset_points():
     st.session_state.points = 0
     st.session_state.message = "ポイントがリセットされました！"
-    st.session_state.reset_done = False  # リセットが行われたフラグをリセット
+    st.session_state.reset_done = True  # リセットが行われたフラグを設定
 
 def main():
     global df
@@ -89,6 +89,8 @@ def main():
         st.session_state.reset_done = False  # リセット状態の初期化
     if 'question_updated' not in st.session_state:
         st.session_state.question_updated = False  # 問題更新状態の初期化
+    if 'next_question' not in st.session_state:
+        st.session_state.next_question = False  # 次の問題フラグの初期化
 
     # サイドバーに現在のポイントとリセットボタンを表示
     st.sidebar.subheader('現在のポイント')
@@ -99,7 +101,7 @@ def main():
         reset_points()
 
     # 選択肢がまだ設定されていない場合は初回設定
-    if not st.session_state.options:
+    if not st.session_state.options or st.session_state.next_question:
         update_question()
 
     # 問題の表示
