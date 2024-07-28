@@ -113,11 +113,9 @@ def main():
     for i, option in enumerate(st.session_state.options):
         with cols[i % 2]:
             # 回答済みかどうかでボタンを無効化する
-            if st.session_state.answer_submitted:
-                st.button(option, disabled=True, key=f"disabled_{option}")
-            else:
-                if st.button(option, key=f"option_{option}"):
-                    check_answer(option)
+            button_disabled = st.session_state.answer_submitted
+            if st.button(option, disabled=button_disabled, key=f"option_{option}"):
+                check_answer(option)
 
     # メッセージを表示
     if st.session_state.message:
