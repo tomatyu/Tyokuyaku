@@ -28,9 +28,14 @@ def update_question():
     st.session_state.options = options
     st.session_state.message = "新しい問題を更新しました！"
     st.session_state.correct = None  # リセットする
+    st.session_state.answer_submitted = False  # 回答状態のリセット
 
 # ユーザーの回答をチェックする関数
 def check_answer(answer):
+    if st.session_state.answer_submitted:
+        st.session_state.message = "すでに回答済みです。問題を更新してから再度挑戦してください。"
+        return
+
     if answer == st.session_state.min_latitude_country:
         st.session_state.message = f"正解！正解は「{st.session_state.min_latitude_country}」です。"
         st.session_state.points += 10  # 正解で10ポイント追加
@@ -39,6 +44,8 @@ def check_answer(answer):
         st.session_state.message = f"不正解…「{answer}」は正しくありません。正解は「{st.session_state.min_latitude_country}」です。"
         st.session_state.points -= 10  # 不正解で10ポイント減算
         st.session_state.correct = False
+
+    st.session_state.answer_submitted = True  # 回答済みフラグを設定
 
 def main():
     global df
@@ -49,7 +56,7 @@ def main():
 
     st.title('国名クイズ')
 
-    # セッション状態にメッセージ、正解フラグ、ポイントがない場合は初期化
+    # セッション状態にメッセージ、正解フラグ、ポイント、回答状態がない場合は初期化
     if 'message' not in st.session_state:
         st.session_state.message = ''
     if 'correct' not in st.session_state:
@@ -60,6 +67,8 @@ def main():
         st.session_state.options = []
     if 'points' not in st.session_state:
         st.session_state.points = 0  # 初期ポイントは0
+    if 'answer_submitted' not in st.session_state:
+        st.session_state.answer_submitted = False  # 回答状態の初期化
 
     # 現在のポイントを表示
     st.sidebar.subheader('現在のポイント')
@@ -80,8 +89,12 @@ def main():
     cols = st.columns(2)
     for i, option in enumerate(st.session_state.options):
         with cols[i % 2]:
-            if st.button(option):
-                check_answer(option)
+            # 回答済みかどうかでボタンを無効化する
+            if st.session_state.answer_submitted:
+                st.button(option, disabled=True)
+            else:
+                if st.button(option):
+                    check_answer(option)
 
     # メッセージを表示
     if st.session_state.message:
