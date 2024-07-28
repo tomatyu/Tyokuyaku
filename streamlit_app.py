@@ -17,10 +17,16 @@ def update_question():
 
     # データから選択肢を設定
     unique_countries = df['国名'].unique()
-    min_latitude_country = df.loc[df['緯度'].idxmin(), '国名']  # 緯度が最小の国
+    
+    # ランダムに4つの国を選ぶ
+    selected_countries = random.sample(list(unique_countries), 4)
+    
+    # 4つの国の緯度情報を取得し、最も緯度が低い国を正解とする
+    selected_df = df[df['国名'].isin(selected_countries)]
+    min_latitude_country = selected_df.loc[selected_df['緯度'].idxmin(), '国名']
 
-    other_countries = random.sample([c for c in unique_countries if c != min_latitude_country], 3)
-    options = [min_latitude_country] + other_countries
+    # 選択肢をシャッフルして表示
+    options = selected_countries
     random.shuffle(options)
 
     # セッション状態を更新
@@ -95,8 +101,6 @@ def main():
             else:
                 if st.button(option, key=f"option_{option}"):
                     check_answer(option)
-                    # ボタンが押されたらすぐに結果を更新するため、次回の状態管理を行う
-                    st.session_state.answer_submitted = True
 
     # メッセージを表示
     if st.session_state.message:
