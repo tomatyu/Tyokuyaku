@@ -54,9 +54,6 @@ def check_answer(answer):
 
     st.session_state.answer_submitted = True  # 回答済みフラグを設定
 
-    # 次の問題を自動的に更新するフラグを設定
-    st.session_state.question_updated = True
-
 def reset_points():
     st.session_state.points = 0
     st.session_state.message = "ポイントがリセットされました！"
@@ -101,8 +98,8 @@ def main():
     if st.button("問題を更新"):
         update_question()
 
-    # 選択肢がまだ設定されていない、または問題が更新された場合は初回設定
-    if not st.session_state.options or st.session_state.question_updated:
+    # 選択肢がまだ設定されていない場合、または問題が更新された場合に問題を更新する
+    if not st.session_state.options:
         update_question()
 
     # 問題の表示
@@ -120,11 +117,6 @@ def main():
     # メッセージを表示
     if st.session_state.message:
         st.write(st.session_state.message)
-
-    # 次の問題の自動更新
-    if st.session_state.question_updated and st.session_state.answer_submitted:
-        st.session_state.question_updated = False
-        update_question()
 
 if __name__ == '__main__':
     main()
