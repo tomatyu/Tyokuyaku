@@ -55,9 +55,8 @@ def check_answer(answer):
     st.session_state.answer_submitted = True  # 回答済みフラグを設定
 
     # 次の問題を自動的に更新
-    st.session_state.next_question = True
+    st.session_state.question_updated = True
 
-# ポイントをリセットする関数
 def reset_points():
     st.session_state.points = 0
     st.session_state.message = "ポイントがリセットされました！"
@@ -89,8 +88,6 @@ def main():
         st.session_state.reset_done = False  # リセット状態の初期化
     if 'question_updated' not in st.session_state:
         st.session_state.question_updated = False  # 問題更新状態の初期化
-    if 'next_question' not in st.session_state:
-        st.session_state.next_question = False  # 次の問題フラグの初期化
 
     # サイドバーに現在のポイントとリセットボタンを表示
     st.sidebar.subheader('現在のポイント')
@@ -101,7 +98,7 @@ def main():
         reset_points()
 
     # 選択肢がまだ設定されていない場合は初回設定
-    if not st.session_state.options or st.session_state.next_question:
+    if not st.session_state.options or st.session_state.question_updated:
         update_question()
 
     # 問題の表示
