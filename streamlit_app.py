@@ -91,9 +91,9 @@ def main():
         with cols[i % 2]:
             # 回答済みかどうかでボタンを無効化する
             if st.session_state.answer_submitted:
-                st.button(option, disabled=True)
+                st.button(option, disabled=True, key=f"disabled_{option}")
             else:
-                if st.button(option):
+                if st.button(option, key=f"option_{option}"):
                     check_answer(option)
 
     # メッセージを表示
