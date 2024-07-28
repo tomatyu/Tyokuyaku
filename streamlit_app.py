@@ -95,6 +95,8 @@ def main():
             else:
                 if st.button(option, key=f"option_{option}"):
                     check_answer(option)
+                    # ボタンが押されたらすぐに結果を更新するため、次回の状態管理を行う
+                    st.session_state.answer_submitted = True
 
     # メッセージを表示
     if st.session_state.message:
