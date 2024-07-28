@@ -40,7 +40,7 @@ def update_question():
 # ユーザーの回答をチェックする関数
 def check_answer(answer):
     if st.session_state.answer_submitted:
-        st.session_state.message = "すでに回答済みです。問題を更新してから再度挑戦してください。"
+        st.session_state.message = "すでに回答済みです。"
         return
 
     if answer == st.session_state.min_latitude_country:
@@ -54,11 +54,14 @@ def check_answer(answer):
 
     st.session_state.answer_submitted = True  # 回答済みフラグを設定
 
+    # 回答後に自動的に問題を更新
+    st.experimental_rerun()
+
 # ポイントをリセットする関数
 def reset_points():
     st.session_state.points = 0
     st.session_state.message = "ポイントがリセットされました！"
-    st.session_state.reset_done = True  # リセットが行われたフラグを設定
+    st.session_state.reset_done = False  # リセットが行われたフラグをリセット
 
 def main():
     global df
@@ -91,16 +94,9 @@ def main():
     st.sidebar.subheader('現在のポイント')
     st.sidebar.write(st.session_state.points)
 
-    # リセットボタンを表示する（押されたら無効化する）
-    if not st.session_state.reset_done:
-        if st.sidebar.button('ポイントをリセット'):
-            reset_points()
-    else:
-        st.sidebar.button('ポイントをリセット', disabled=True)
-
-    # 問題更新のボタン（問題が更新されていない場合にのみ表示）
-    if st.button("問題を更新"):
-        update_question()
+    # リセットボタンを表示する（押されたら無効化せずに毎回押せるようにする）
+    if st.sidebar.button('ポイントをリセット'):
+        reset_points()
 
     # 選択肢がまだ設定されていない場合は初回設定
     if not st.session_state.options:
