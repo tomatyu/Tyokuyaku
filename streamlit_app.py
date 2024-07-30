@@ -4,7 +4,7 @@ import pandas as pd
 # Excelをロードする関数
 def load_data():
     try:
-        return pd.read_excel("1s.xlsx")  # Excelファイルのパスと拡張子を確認してください
+        return pd.read_excel("2s.xlsx")  # Excelファイルのパスと拡張子を確認してください
     except Exception as e:
         st.error(f"ファイルの読み込みに失敗しました: {e}")
         return pd.DataFrame()  # 空のデータフレームを返す
