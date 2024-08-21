@@ -1,38 +1,36 @@
 import streamlit as st
-import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
-# Excelをロードする関数
-def load_data():
-    try:
-        return pd.read_excel("2s.xlsx")  # Excelファイルのパスと拡張子を確認してください
-    except Exception as e:
-        st.error(f"ファイルの読み込みに失敗しました: {e}")
-        return pd.DataFrame()  # 空のデータフレームを返す
+def plot_triangle():
+    fig, ax = plt.subplots()
 
-# データの読み込み
-countries_df = load_data()
+    # 三角形の頂点を定義
+    triangle = np.array([[0, 0], [1, 0], [0.5, 1], [0, 0]])
 
-# サイドバーでの単語入力
-st.sidebar.header("単語入力")
-inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(60)]
+    # 三角形をプロット
+    ax.plot(triangle[:, 0], triangle[:, 1], 'b-')  # 青い線で描画
+    ax.fill(triangle[:, 0], triangle[:, 1], 'lightblue')  # 軽い青で塗りつぶし
 
-# メインエリア
-st.title("$古文直訳writer$")
-st.write("上から文節ごとに:red[ひらがなで]入力してください。（最大60単語適応）")
+    # 軸の設定
+    ax.set_xlim(-0.1, 1.1)
+    ax.set_ylim(-0.1, 1.1)
+    ax.set_aspect('equal')
 
+    ax.set_xlabel('X-axis')
+    ax.set_ylabel('Y-axis')
+    ax.set_title('Triangle')
 
-# 「直訳を表示」ボタンがクリックされたときの処理
-if st.button('直訳を表示'):
-    meanings = []
-    for word in inputs:
-        if word.strip() != "":  # 空でない単語のみ検索
-            kv = countries_df[countries_df["古文"] == word]
-            if not kv.empty:
-                meanings.append(kv["意味"].iloc[0])
-            else:
-                meanings.append(f"'{word}' の検索結果が見つかりませんでした")
-        else:
-            meanings.append("")
+    return fig
+
+def main():
+    st.title('Triangle Drawing with Streamlit and Matplotlib')
     
-    # 検索結果を表示
-    st.write(" ".join(meanings))
+    # 三角形をプロット
+    fig = plot_triangle()
+    
+    # Matplotlibの図をStreamlitで表示
+    st.pyplot(fig)
+
+if __name__ == "__main__":
+    main()
