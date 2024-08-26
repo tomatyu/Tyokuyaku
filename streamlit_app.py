@@ -2,29 +2,26 @@ import streamlit as st
 import pydeck as pdk
 
 # Streamlitのタイトル
-st.title('地球儀の表示')
+st.title('3D球体地球儀の表示')
 
 # pydeckの地球儀を作成
 deck = pdk.Deck(
     initial_view_state=pdk.ViewState(
-        latitude=37.7749,  # 緯度（例: サンフランシスコ）
-        longitude=-122.4194,  # 経度（例: サンフランシスコ）
-        zoom=5,  # ズームレベル
-        pitch=30  # 傾き
+        latitude=0,  # 緯度
+        longitude=0,  # 経度
+        zoom=1,  # ズームレベル
+        pitch=0  # 傾き
     ),
     layers=[
         pdk.Layer(
-            'HexagonLayer',
-            data=[
-                {'position': [-122.4194, 37.7749]}  # サンプルデータ
-            ],
-            get_position='position',
-            radius=1000,
-            extruded=True,
-            coverage=1
+            'GlobeLayer',
+            data=[{}],  # データは空でも球体の表示には影響なし
+            get_position='[longitude, latitude]',
+            radius=1,
+            extruded=True
         )
     ],
-    tooltip={"text": "{position}"}
+    views=[pdk.view.GlobeView()]  # GlobeViewを使って球体表示
 )
 
 # Streamlitで地球儀を表示
