@@ -21,7 +21,7 @@ def generate_map_texture(resolution=100):
     return texture
 
 # 球体のサイズ
-radius = 2
+radius = 10
 x, y, z = generate_sphere(radius)
 
 # 模擬地図データを生成
