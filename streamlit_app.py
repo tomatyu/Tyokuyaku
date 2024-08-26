@@ -1,36 +1,29 @@
 import streamlit as st
-import pydeck as pdk
+import plotly.graph_objects as go
+import numpy as np
 
 # Streamlitのタイトル
-st.title('回転可能な3Dビジュアライゼーション')
+st.title('立体の球体の表示')
 
-# pydeckの3Dビジュアライゼーションを作成
-deck = pdk.Deck(
-    initial_view_state=pdk.ViewState(
-        latitude=0,  # 緯度
-        longitude=0,  # 経度
-        zoom=1,  # ズームレベル
-        pitch=45,  # 傾き（地球儀風に見せるための角度）
-        bearing=0  # 回転
-    ),
-    layers=[
-        pdk.Layer(
-            'ScatterplotLayer',
-            data=[
-                {'position': [-122.4194, 37.7749], 'size': 100},  # サンフランシスコの座標
-                {'position': [139.6917, 35.6895], 'size': 100},  # 東京の座標
-            ],
-            get_position='position',
-            get_fill_color=[255, 0, 0],
-            get_radius='size',
-            radius_scale=10,
-            radius_min_pixels=5
-        )
-    ],
-    # 地球儀に近い3Dビューを提供するための設定
-    views=[pdk.view.OrbitalView()],
-    tooltip={"text": "{position}"}
-)
+# 球体のデータ生成
+def generate_sphere():
+    u = np.linspace(0, 2 * np.pi, 100)
+    v = np.linspace(0, np.pi, 100)
+    x = np.outer(np.cos(u), np.sin(v))
+    y = np.outer(np.sin(u), np.sin(v))
+    z = np.outer(np.ones(np.size(u)), np.cos(v))
+    return x, y, z
 
-# Streamlitで3Dビジュアライゼーションを表示
-st.pydeck_chart(deck)
+x, y, z = generate_sphere()
+
+# Plotlyの球体を作成
+fig = go.Figure(data=[go.Surface(x=x, y=y, z=z, colorscale='Viridis')])
+fig.update_layout(scene=dict(
+                    xaxis=dict(nticks=4, range=[-1.5, 1.5]),
+                    yaxis=dict(nticks=4, range=[-1.5, 1.5]),
+                    zaxis=dict(nticks=4, range=[-1.5, 1.5]),
+                    aspectratio=dict(x=1, y=1, z=1)
+                  ))
+
+# Streamlitで球体を表示
+st.plotly_chart(fig)
