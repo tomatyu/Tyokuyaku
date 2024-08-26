@@ -19,9 +19,9 @@ x, y, z = generate_sphere()
 # Plotlyの球体を作成
 fig = go.Figure(data=[go.Surface(x=x, y=y, z=z, colorscale='Viridis')])
 fig.update_layout(scene=dict(
-                    xaxis=dict(nticks=4, range=[-5, 5]),
-                    yaxis=dict(nticks=4, range=[-5, 5]),
-                    zaxis=dict(nticks=4, range=[-5, 5]),
+                    xaxis=dict(nticks=4, range=[-0.05, 0.05]),
+                    yaxis=dict(nticks=4, range=[-0.05, 0.05]),
+                    zaxis=dict(nticks=4, range=[-0.05, 0.05]),
                     aspectratio=dict(x=1, y=1, z=1)
                   ))
 
