@@ -41,7 +41,7 @@ fig.update_layout(
         xaxis=dict(nticks=4, range=[-radius-0.5, radius+0.5]),
         yaxis=dict(nticks=4, range=[-radius-0.5, radius+0.5]),
         zaxis=dict(nticks=4, range=[-radius-0.5, radius+0.5]),
-        aspectratio=dict(x=10, y=10, z=10)
+        aspectratio=dict(x=1, y=1, z=1)
     ),
     title='球体に模擬地図を貼り付けた表示'
 )
