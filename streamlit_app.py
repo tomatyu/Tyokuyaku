@@ -1,50 +1,38 @@
 import streamlit as st
-import plotly.graph_objects as go
-import numpy as np
+import pandas as pd
 
-# Streamlitのタイトル
-st.title('球体に模擬地図を貼り付け')
+# Excelをロードする関数
+def load_data():
+    try:
+        return pd.read_excel("56.xlsx")  # Excelファイルのパスと拡張子を確認してください
+    except Exception as e:
+        st.error(f"ファイルの読み込みに失敗しました: {e}")
+        return pd.DataFrame()  # 空のデータフレームを返す
 
-# 球体のデータ生成
-def generate_sphere(radius=1, resolution=100):
-    u = np.linspace(0, 2 * np.pi, resolution)
-    v = np.linspace(0, np.pi, resolution)
-    x = radius * np.outer(np.cos(u), np.sin(v))
-    y = radius * np.outer(np.sin(u), np.sin(v))
-    z = radius * np.outer(np.ones(np.size(u)), np.cos(v))
-    return x, y, z
+# データの読み込み
+countries_df = load_data()
 
-# 簡単な模擬地図データの生成
-def generate_map_texture(resolution=100):
-    # 模擬地図としてランダムなノイズを生成
-    texture = np.random.rand(resolution, resolution, 3)
-    return texture
+# サイドバーでの単語56
+st.sidebar.header("単語入力")
+inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(60)]
 
-# 球体のサイズ
-radius = 100
-x, y, z = generate_sphere(radius)
+# メインエリア
+st.title("$古文直訳writer$")
+st.write("上から文節ごとに:red[ひらがなで]入力してください。（最大60単語適応）")
 
 
-# Plotlyの球体を作成
-fig = go.Figure(data=[go.Surface(
-    x=x,
-    y=y,
-    z=z,
-    colorscale='Viridis',
-    cmin=0,
-    cmax=1,
-    showscale=False
-)])
-
-fig.update_layout(
-    scene=dict(
-        xaxis=dict(nticks=4, range=[-radius-0.5, radius+0.5]),
-        yaxis=dict(nticks=4, range=[-radius-0.5, radius+0.5]),
-        zaxis=dict(nticks=4, range=[-radius-0.5, radius+0.5]),
-        aspectratio=dict(x=1, y=1, z=1)
-    ),
-    title='球体に模擬地図を貼り付けた表示'
-)
-
-# Streamlitで球体を表示
-st.plotly_chart(fig)
+# 「直訳を表示」ボタンがクリックされたときの処理
+if st.button('直訳を表示'):
+    meanings = []
+    for word in inputs:
+        if word.strip() != "":  # 空でない単語のみ検索
+            kv = countries_df[countries_df["古文"] == word]
+            if not kv.empty:
+                meanings.append(kv["意味"].iloc[0])
+            else:
+                meanings.append(f"'{word}' の検索結果が見つかりませんでした")
+        else:
+            meanings.append("")
+    
+    # 検索結果を表示
+    st.write(" ".join(meanings))
