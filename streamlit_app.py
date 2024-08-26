@@ -24,15 +24,12 @@ def generate_map_texture(resolution=100):
 radius = 100
 x, y, z = generate_sphere(radius)
 
-# 模擬地図データを生成
-map_texture = generate_map_texture(x.shape[0])
 
 # Plotlyの球体を作成
 fig = go.Figure(data=[go.Surface(
     x=x,
     y=y,
     z=z,
-    surfacecolor=map_texture[:, :, 0],  # 赤チャンネルを使用
     colorscale='Viridis',
     cmin=0,
     cmax=1,
