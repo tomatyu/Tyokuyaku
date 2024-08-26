@@ -2,7 +2,7 @@ import streamlit as st
 import pydeck as pdk
 
 # Streamlitのタイトル
-st.title('地球儀風のデータ表示')
+st.title('回転可能な地球儀風のビジュアライゼーション')
 
 # pydeckの地球儀風のビジュアライゼーションを作成
 deck = pdk.Deck(
@@ -10,25 +10,25 @@ deck = pdk.Deck(
         latitude=0,  # 緯度
         longitude=0,  # 経度
         zoom=1,  # ズームレベル
-        pitch=50  # 傾き
+        pitch=30,  # 傾き
+        bearing=0  # 回転
     ),
     layers=[
         pdk.Layer(
-            'ArcLayer',
+            'ScatterplotLayer',
             data=[
-                {
-                    'start': [-122.4194, 37.7749],  # サンフランシスコの座標
-                    'end': [139.6917, 35.6895],  # 東京の座標
-                }
+                {'position': [-122.4194, 37.7749], 'size': 100},  # サンフランシスコ
+                {'position': [139.6917, 35.6895], 'size': 100},  # 東京
             ],
-            get_source_position='start',
-            get_target_position='end',
-            get_source_color=[255, 0, 0],
-            get_target_color=[0, 0, 255],
-            radius=1000,
-            width_scale=10
+            get_position='position',
+            get_fill_color=[255, 0, 0],
+            get_radius='size',
+            radius_scale=10,
+            radius_min_pixels=5
         )
-    ]
+    ],
+    views=[pdk.view.GlobeView()],
+    tooltip={"text": "{position}"}
 )
 
 # Streamlitで地球儀風のビジュアライゼーションを表示
