@@ -4,7 +4,7 @@ import pandas as pd
 # Excelをロードする関数
 def load_data():
     try:
-        return pd.read_excel("2s.xlsx")  # Excelファイルのパスと拡張子を確認してください
+        return pd.read_excel("56.xlsx")  # Excelファイルのパスと拡張子を確認してください
     except Exception as e:
         st.error(f"ファイルの読み込みに失敗しました: {e}")
         return pd.DataFrame()  # 空のデータフレームを返す
@@ -12,7 +12,7 @@ def load_data():
 # データの読み込み
 countries_df = load_data()
 
-# サイドバーでの単語入力
+# サイドバーでの単語56
 st.sidebar.header("単語入力")
 inputs = [st.sidebar.text_input(f"単語 {i+1}", key=f"input_{i}") for i in range(60)]
 
