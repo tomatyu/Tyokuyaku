@@ -28,7 +28,7 @@ if st.button('直訳を表示'):
         if word.strip() != "":  # 空でない単語のみ検索
             kv = countries_df[countries_df["古文"] == word]
             if not kv.empty:
-                meanings.append("/",kv["意味"].iloc[0])
+                meanings.append(kv["意味"].iloc[0])
             else:
                 meanings.append(f"{word}")
         else:
