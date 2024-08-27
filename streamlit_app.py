@@ -29,6 +29,7 @@ if st.button('直訳を表示'):
             kv = countries_df[countries_df["古文"] == word]
             if not kv.empty:
                 meanings.append(kv["意味"].iloc[0])
+                meanings.append("/")
             else:
                 meanings.append(f"{word}")
         else:
