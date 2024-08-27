@@ -31,7 +31,7 @@ if st.button('直訳を表示'):
                 a = kv["意味"].iloc[0]
                 st.write("/",a)
             else:
-                st.write(f"{word}")
+                meanings.append(f"{word}")
         else:
             meanings.append("")
     
