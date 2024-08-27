@@ -30,7 +30,7 @@ if st.button('直訳を表示'):
             if not kv.empty:
                 meanings.append(kv["意味"].iloc[0])
             else:
-                meanings.append(f"'{word}'")
+                meanings.append(f"{word}")
         else:
             meanings.append("")
     
