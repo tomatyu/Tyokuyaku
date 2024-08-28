@@ -34,7 +34,7 @@ if text_input:
         if not kv.empty:
             meanings.append(kv["意味"].iloc[0])
         else:
-            meanings.append(f"'{segment}' の検索結果が見つかりませんでした")
+            meanings.append(f"'{segment}' ")
     
     st.subheader('文節ごとの直訳結果')
     st.write(" / ".join(meanings))
