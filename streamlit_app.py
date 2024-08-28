@@ -17,4 +17,4 @@ if text_input:
 
     # 結果の表示
     st.subheader('文節ごとに分割した結果')
-    st.write(', '.join(segments))
+    st.write('/ '.join(segments))
