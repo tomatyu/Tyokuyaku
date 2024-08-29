@@ -28,13 +28,14 @@ if text_input:
     segments = [token.surface for token in tokens]
 
     # 直訳の検索と結果の表示
-    meanings = []
-    for segment in segments:
+    if st.button:
+     meanings = []
+     for segment in segments:
         kv = countries_df[countries_df["古文"] == segment]
         if not kv.empty:
             meanings.append(kv["意味"].iloc[0])
         else:
             meanings.append(f"{segment} ")
     
-    st.subheader('文節ごとの直訳結果')
-    st.write(" / ".join(meanings))
+        st.subheader('文節ごとの直訳結果')
+        st.write(" / ".join(meanings))
