@@ -27,7 +27,7 @@ def main():
     count = load_count()
     
     # カウント表示
-    st.write(f'現在のカウント: {count}')
+    
     
     # ボタンが押されたときの処理
     if st.button('カウントアップ'):
