@@ -27,15 +27,14 @@ if text_input:
     # 文節ごとに分割
     segments = [token.surface for token in tokens]
 
-    # ボタンがクリックされたときの処理
-    if st.button('直訳を表示'):
-        meanings = []
-        for segment in segments:
-            kv = countries_df[countries_df["古文"] == segment]
-            if not kv.empty:
-                meanings.append(kv["意味"].iloc[0])
-            else:
-                meanings.append(f"{segment} ")
-        
-        st.subheader('文節ごとの直訳結果')
-        st.write(" / ".join(meanings))
+    # 直訳の検索と結果の表示
+    meanings = []
+    for segment in segments:
+        kv = countries_df[countries_df["古文"] == segment]
+        if not kv.empty:
+            meanings.append(kv["意味"].iloc[0])
+        else:
+            meanings.append(f"{segment} ")
+    
+    st.subheader('文節ごとの直訳結果')
+    st.write(" / ".join(meanings))
