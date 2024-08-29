@@ -33,7 +33,7 @@ def main():
     if st.button('カウントアップ'):
         count += 1
         save_count(count)
-        
+        st.write(f'現在のカウント: {count}')
 
 if __name__ == "__main__":
     main()
