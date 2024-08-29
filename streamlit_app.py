@@ -28,7 +28,7 @@ if text_input:
     segments = [token.surface for token in tokens]
 
     # 直訳の検索と結果の表示
-    if st.button:
+if st.button:
      meanings = []
      for segment in segments:
         kv = countries_df[countries_df["古文"] == segment]
