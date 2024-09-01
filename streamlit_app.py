@@ -1,63 +1,40 @@
 import streamlit as st
+from janome.tokenizer import Tokenizer
+import pandas as pd
 
-# カウントを保存するためのファイル名
-COUNTER_FILE_1 = 'counter1.txt'
-COUNTER_FILE_2 = 'counter2.txt'
-
-# カウントをファイルから読み込む関数
-def load_count(file_name):
+# 関数: データの読み込み
+def load_data():
     try:
-        with open(file_name, 'r') as file:
-            count = int(file.read())
-    except FileNotFoundError:
-        count = 0
-    except ValueError:
-        count = 0
-    return count
+        return pd.read_excel("56.xlsx")  # Excelファイルのパスと拡張子を確認してください
+    except Exception as e:
+        st.error(f"ファイルの読み込みに失敗しました: {e}")
+        return pd.DataFrame()  # 空のデータフレームを返す
 
-# カウントをファイルに保存する関数
-def save_count(file_name, count):
-    with open(file_name, 'w') as file:
-        file.write(str(count))
+# 初期設定
+st.title('古文自動直訳ツール')
 
-# カウントをリセットする関数
-def reset_count(file_name):
-    save_count(file_name, 0)
+# 入力ボックス
+text_input = st.text_area('古文テキストを入力してください', height=200)
 
-# Streamlitアプリケーション
-def main():
-    st.title('2つのカウントアプリ')
+# データの読み込み
+countries_df = load_data()
 
-    # カウントの読み込み
-    count1 = load_count(COUNTER_FILE_1)
-    count2 = load_count(COUNTER_FILE_2)
+# 文節分割処理
+if text_input:
+    tokenizer = Tokenizer()
+    tokens = tokenizer.tokenize(text_input)
+    
+    # 文節ごとに分割
+    segments = [token.surface for token in tokens]
 
-    # レイアウトの設定
-    col1, col2 = st.columns(2)
-
-    # 1つ目のカウントボタンとリセットボタン
-    with col1:
-        st.write(f'カウント 1: {count1}')
-        if st.button('カウントアップ 1'):
-            count1 += 1
-            save_count(COUNTER_FILE_1, count1)
-            st.write(f'カウント 1: {count1}')
-        if st.button('リセット 1'):
-            reset_count(COUNTER_FILE_1)
-            count1 = 0
-            st.write(f'カウント 1: {count1}')
-
-    # 2つ目のカウントボタンとリセットボタン
-    with col2:
-        st.write(f'カウント 2: {count2}')
-        if st.button('カウントアップ 2'):
-            count2 += 1
-            save_count(COUNTER_FILE_2, count2)
-            st.write(f'カウント 2: {count2}')
-        if st.button('リセット 2'):
-            reset_count(COUNTER_FILE_2)
-            count2 = 0
-            st.write(f'カウント 2: {count2}')
-
-if __name__ == "__main__":
-    main()
+    # 直訳の検索と結果の表示
+    meanings = []
+    for segment in segments:
+        kv = countries_df[countries_df["古文"] == segment]
+        if not kv.empty:
+            meanings.append(kv["意味"].iloc[0])
+        else:
+            meanings.append(f"{segment} ")
+    
+    st.subheader('文節ごとの直訳結果')
+    st.write(" / ".join(meanings))
