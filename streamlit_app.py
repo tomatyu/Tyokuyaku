@@ -37,4 +37,4 @@ if text_input:
             meanings.append(f"{segment} ")
     
     st.subheader('文節ごとの直訳結果')
-    st.write(" / ".join(meanings))
+    st.write("  ".join(meanings))
